@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mysql.DaoNotasIMPL;
+import mysql.Sql_Notas;
 
 import Bean.BeanNotas;
 
@@ -51,7 +51,7 @@ public class ServletNotas extends HttpServlet {
 		no.setBim_3(Bim_3);
 		no.setBim_4(Bim_4);
 		
-		DaoNotasIMPL DNI = new DaoNotasIMPL();
+		Sql_Notas DNI = new Sql_Notas();
 		
 	    if ("Agregar".equals(request.getParameter("btnAgregar"))) 
 	    {

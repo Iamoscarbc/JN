@@ -2,12 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
  <%@ page import="Bean.BeanAlumno"%>
- <%@ page import="mysql.DaoAlumnoIMPL"%>
+ <%@ page import="mysql.Sql_Alumno"%>
  <%@ page import="util.ToolLista"%>
  <%@page session="true"%>
 
 <%
-HttpSession sesion= request.getSession();
+	HttpSession sesion= request.getSession();
 
 if(sesion.getAttribute("tipo")==null){
     response.sendRedirect("index.jsp");
@@ -22,23 +22,27 @@ else{
 
       <%
       	ToolLista lis_usu=new ToolLista();
-    	 DaoAlumnoIMPL sql= new DaoAlumnoIMPL();
-    	 BeanAlumno bean= new BeanAlumno();
-        lis_usu = sql.listarUsuarios();
+          	 Sql_Alumno sql= new Sql_Alumno();
+          	 BeanAlumno bean= new BeanAlumno();
+              lis_usu = sql.listarUsuarios();
       %>
 
 <!DOCTYPE html>
 <html>
     <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
-  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-  <link href="fontawesome-free-5.4.1-web/css/fontawesome.min.css">
-  <link rel="icon" type="image/png" href="img/flechas.png">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>	
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+	<link rel="stylesheet" href="fontawesome-free-5.4.1-web/css/fontawesome.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<link rel="icon" type="image/png" href="img/flechas.png">
 <title>Alumnos</title>
     </head>
     
 <body class="bg-dark">
+
 	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000;" >
 	  <a class="navbar-brand" href="Alumnos.jsp">Registro de Alumnos</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,55 +80,14 @@ else{
 	    </form>
 	  </div>
 	</nav>
-	<div class="container">
-	<div class="row" style="padding-top:50px">
-        <div class="col-sm-3" style="background-color: #222128;">
-          <div class="card-body text-white">
-            <form action="ServletAlumno" method="get">                
-                <div class="form-group">
-                  <input type="text" placeholder="DNI" name="DNI" id="DNI" class="form-control">
-                </div>
-                <div class="form-group">
-                  <input type="text" placeholder="Nombres" name="Nombres" id="Nombres" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Apellidos" name="Apellidos" id="Apellidos" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Direccion" name="Direccion" id="Direccion" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Telefono"  name="Telefono" id="Telefono" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Edad"  name="Edad" id="Edad" class="form-control">
-                </div>
-                <div class="form-group">
-				    <select class="form-control" id="Grado" name="Grado">
-				    <option value="null" selected="true" disabled="disabled">Seleccione Grado</option>
-				      <option>Estimulación Temprana</option>
-				      <option>3 años</option>
-				      <option>4 años</option>
-				      <option>5 años</option>
-				    </select>
-				  </div>
-				  <div class="form-group">
-				    <select class="form-control" id="Sexo" name="Sexo">
-				    <option value="null" selected="true" disabled="disabled">Seleccione Sexo</option>
-				      <option>Masculino</option>
-				      <option>Femenino</option>
-				    </select>
-				  </div>     
-				  <div align="center">
-                    <input type="submit" value="Agregar" name="btnAgregar" class="btn btn-outline-success"><br><br>
-                  	<input type="text" placeholder="idAlumno" name="idAlumno" id="idAlumno" class="form-control"><br>
-                    <input type="submit" value="Modificar" name="btnModificar" class="btn btn-outline-primary">
-                    <input type="submit" value="Eliminar" name="btnEliminar" class="btn btn-outline-danger">
-                  </div>
-            </form>
-          </div>
-        </div>
-          <div class="col-sm-9 bg-dark">
+	
+	<div class="container">	
+	<div class="row" style="padding-top:20px">  	      
+          <div class="col bg-dark">
+          	<div>
+		    	<a href="#registroAlumnos" class="btn btn-success btn-md " id="Visualizar" data-toggle="modal"><i class="fas fa-sign-in-alt"></i> Registrar</a>
+		    </div> 
+		    <br>	
             <div class="table-responsive">
               <table class="table table-bordered table-dark text-white">
                 <thead>
@@ -156,11 +119,15 @@ else{
                             <td id="Edad1"><%=bean.getEdad() %></td>
                             <td id="Grado1"><%=bean.getGrado() %></td>
                             <td id="Sexo1"><%=bean.getSexo() %></td>
-                            <td>
-				            	<button name="btnEditar" value="Editar" id="Editar" class="btn btn-outline-primary">Editar</button>
+                            <td>				        
+								<button name="btnEditar" value="Editar" id="Editar" class="btn btn-outline-primary">
+								<a href="#modificarAlumnos" id="Visualizar" data-toggle="modal" class="text-primary">Editar</a> 
+								</button> 
 				            </td>
 				            <td>
-				            	<button name="btnEliminar1" value="Eliminar" id="Eliminar1" class="btn btn-outline-danger">Eliminar</button>
+				            	<button name="btnRellenar" value="Rellenar" id="Rellenar" class="btn btn-outline-danger">
+				            	<a href="#eliminarAlumnos" id="Visualizar" data-toggle="modal" class="text-danger">Eliminar</a>
+				            	</button>
 				            </td>
                       </tr>
                     <% } %>
@@ -169,10 +136,155 @@ else{
             </div>
         </div> 
         </div>
-        </div>           
+        </div>   
+        
+        <div class="modal fade" id="registroAlumnos">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content" style="background-color: #000000;">
+					<div class="modal-header">
+					<h3 class="modal-tittle text-center text-white" id="tittleModal">Registrar Alumnos</h3>
+					<button type="button" class="close" id="ClosePro" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body">
+						<div id="modalAlumnos">
+					<div class="col" style="background-color: #222128;">
+			          <div class="card-body text-white">
+			            <form action="ServletAlumno" method="get">                
+			                <div class="form-group">
+			                  <input type="text" placeholder="DNI" name="DNI" class="form-control" required>
+			                </div>
+			                <div class="form-group">
+			                  <input type="text" placeholder="Nombres" name="Nombres" class="form-control" required>
+			                </div>
+			                <div class="form-group">
+			                    <input type="text" placeholder="Apellidos" name="Apellidos" class="form-control" required>
+			                </div>
+			                <div class="form-group">
+			                    <input type="text" placeholder="Direccion" name="Direccion" class="form-control" required>
+			                </div>
+			                <div class="form-group">
+			                    <input type="text" placeholder="Telefono"  name="Telefono"class="form-control" required>
+			                </div>
+			                <div class="form-group">
+			                    <input type="text" placeholder="Edad"  name="Edad" class="form-control" required>
+			                </div>
+			                <div class="form-group">
+							    <select class="form-control" name="Grado" required>
+							    <option value="null" selected="true" disabled="disabled">Seleccione Grado</option>
+							      <option>Estimulación Temprana</option>
+							      <option>3 años</option>
+							      <option>4 años</option>
+							      <option>5 años</option>
+							    </select>
+							  </div>
+							  <div class="form-group">
+							    <select class="form-control" name="Sexo" required>
+							    <option value="null" selected="true" disabled="disabled">Seleccione Sexo</option>
+							      <option>Masculino</option>
+							      <option>Femenino</option>
+							    </select>
+							  </div>     
+							  <div align="center">
+			                    <input type="submit" value="Agregar" name="btnAgregar" id="Agregar" class="btn btn-outline-success"><br><br>
+			                  </div>
+			            </form>
+			          </div>
+			        </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+			
+		<div class="modal fade" id="modificarAlumnos">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content" style="background-color: #000000;">
+					<div class="modal-header">
+					<h3 class="modal-tittle text-center text-white" id="tittleModal">Modificar Alumnos</h3>
+					<button type="button" class="close" id="ClosePro" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body">
+						<div id="modalAlumnos">
+					<div class="col" style="background-color: #222128;">
+			          <div class="card-body text-white">
+			            <form action="ServletAlumno" method="get">                
+			                <div class="form-group">
+			                  <input type="text" placeholder="DNI" name="DNI" id="DNI" class="form-control" required>
+			                </div>
+			                <div class="form-group">
+			                  <input type="text" placeholder="Nombres" name="Nombres" id="Nombres" class="form-control" required>
+			                </div>
+			                <div class="form-group">
+			                    <input type="text" placeholder="Apellidos" name="Apellidos" id="Apellidos" class="form-control" required>
+			                </div>
+			                <div class="form-group">
+			                    <input type="text" placeholder="Direccion" name="Direccion" id="Direccion" class="form-control" required>
+			                </div>
+			                <div class="form-group">
+			                    <input type="text" placeholder="Telefono"  name="Telefono" id="Telefono" class="form-control" required>
+			                </div>
+			                <div class="form-group">
+			                    <input type="text" placeholder="Edad"  name="Edad" id="Edad" class="form-control" required>
+			                </div>
+			                <div class="form-group">
+							    <select class="form-control" id="Grado" name="Grado" required>
+							    <option value="null" selected="true" disabled="disabled">Seleccione Grado</option>
+							      <option>Estimulación Temprana</option>
+							      <option>3 años</option>
+							      <option>4 años</option>
+							      <option>5 años</option>
+							    </select>
+							  </div>
+							  <div class="form-group">
+							    <select class="form-control" id="Sexo" name="Sexo" required>
+							    <option value="null" selected="true" disabled="disabled">Seleccione Sexo</option>
+							      <option>Masculino</option>
+							      <option>Femenino</option>
+							    </select>
+							  </div>     
+							  <div align="center">
+			                  	<input type="text" placeholder="idAlumno" name="idAlumno" id="idAlumno" class="form-control" required><br>
+			                    <input type="submit" value="Modificar" name="btnModificar" class="btn btn-outline-primary">
+			                  </div>
+			            </form>
+			          </div>
+			        </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>  
+			
+		<div class="modal fade" id="eliminarAlumnos">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content" style="background-color: #000000;">
+					<div class="modal-header">
+					<h3 class="modal-tittle text-center text-white" id="tittleModal">Eliminar Alumnos</h3>
+					<button type="button" class="close" id="ClosePro" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body">
+						<div id="modalAlumnos">
+							<div class="col" style="background-color: #222128;">
+					          <div class="card-body text-white">
+					            <form action="ServletAlumno" method="get">               
+					                  <div align="center">
+					                  <label>¿Desea Eliminar a el alumno con el siguiente ID?</label>
+					                  	<input type="text" placeholder="idAlumno" name="idAlumno" id="idAlumnoE" class="form-control" required><br>
+					                    <input type="submit" value="Eliminar" name="btnEliminar" class="btn btn-outline-danger">
+					                  </div>
+					            </form>
+					          </div>
+					        </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
    <script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
    <script src="js/bootstrap.min.js" type="text/javascript"></script>
    <script src="js/popper.min.js" type="text/javascript"></script>
-   <script src="ajaxAlumnos.js" type="text/javascript"></script>
+   <script src="Ajax/ajaxAlumnos/editar.js" type="text/javascript"></script>
+   <script src="Ajax/ajaxAlumnos/eliminar.js" type="text/javascript"></script>
 </body>
 </html>

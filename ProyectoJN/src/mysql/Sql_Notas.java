@@ -11,13 +11,13 @@ import util.ToolLista;
 import Bean.BeanNotas;
 
 
-public class DaoNotasIMPL implements DaoNotas {
+public class Sql_Notas implements DaoNotas {
 
 
 	private final  SqlDBConn mysql;
 	String SQL="";
 	int i=0;
-	public DaoNotasIMPL()
+	public Sql_Notas()
 	{
 		this.mysql = new SqlDBConn();
 	}
@@ -174,7 +174,7 @@ public class DaoNotasIMPL implements DaoNotas {
 	/*public static void main (String [] args)
 	 {
 		 BeanNotas no = new BeanNotas();
-		 DaoNotasIMPL dni = new DaoNotasIMPL();
+		 Sql_Notas dni = new Sql_Notas();
 		 
 		 no.setIdNotas("2");
 		 no.setIdCurso("1");

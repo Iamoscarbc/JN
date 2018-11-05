@@ -9,12 +9,12 @@ import Bean.BeanCurso;
 import util.SqlDBConn;
 import util.ToolLista;
 
-public class DaoCursoIMPL {
+public class Sql_Curso {
 
 	private final  SqlDBConn mysql;
 	String SQL="";
 	int i=0;
-	public DaoCursoIMPL() 
+	public Sql_Curso() 
 	{
 		this.mysql = new SqlDBConn();
 	}

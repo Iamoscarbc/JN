@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Bean.BeanAlumno;
-import mysql.DaoAlumnoIMPL;
+import mysql.Sql_Alumno;
 
 @WebServlet(name = "ServletAlumno", urlPatterns = {"/ServletAlumno"})
 public class ServletAlumno extends HttpServlet {
@@ -41,7 +41,7 @@ public class ServletAlumno extends HttpServlet {
 		al.setGrado(Grado);
 		al.setSexo(Sexo);
 		
-		DaoAlumnoIMPL DAI = new DaoAlumnoIMPL();
+		Sql_Alumno DAI = new Sql_Alumno();
 		
 	    if ("Agregar".equals(request.getParameter("btnAgregar"))) 
 	    {

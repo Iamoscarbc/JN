@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Bean.BeanEmpleado;
-import mysql.DaoEmpleadoIMPL;
+import mysql.Sql_Empleado;
 
 /**
  * Servlet implementation class servletEmpleado
@@ -45,7 +45,7 @@ public class ServletEmpleado extends HttpServlet {
 		ep.setEdad(Edad);
 		ep.setSexo(Sexo);
 		
-		DaoEmpleadoIMPL dei = new DaoEmpleadoIMPL();
+		Sql_Empleado dei = new Sql_Empleado();
 		
 		
 		 if ("Agregar".equals(request.getParameter("btnAgregar"))) 

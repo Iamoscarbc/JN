@@ -12,7 +12,7 @@ import util.ToolLista;
 import Bean.BeanEmpleado;
 import DAO.DaoEmpleado;
 
-public class DaoEmpleadoIMPL implements DaoEmpleado 
+public class Sql_Empleado implements DaoEmpleado 
 {
 	
 	private final  SqlDBConn mysql;
@@ -20,7 +20,7 @@ public class DaoEmpleadoIMPL implements DaoEmpleado
 	String pass="";
 	int i=0;
 	
-	public DaoEmpleadoIMPL() 
+	public Sql_Empleado() 
 	{
 		this.mysql = new SqlDBConn();
 	}
@@ -196,7 +196,7 @@ public class DaoEmpleadoIMPL implements DaoEmpleado
 	/*public static void main(String [] arg) 
 	{
 		BeanEmpleado pr = new BeanEmpleado();
-		DaoEmpleadoIMPL dpi= new DaoEmpleadoIMPL();
+		Sql_Empleado dpi= new Sql_Empleado();
 		
 		pr.setIdEmpleado("1");
 		pr.setIdUsuario("1");

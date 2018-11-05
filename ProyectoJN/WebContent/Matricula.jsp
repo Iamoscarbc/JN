@@ -2,29 +2,29 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
  <%@ page import="Bean.BeanAlumno"%>
- <%@ page import="mysql.DaoAlumnoIMPL"%>
+ <%@ page import="mysql.Sql_Alumno"%>
  <%@ page import="util.ToolLista"%>
  <%@page session="true"%>   
     
     <%
-HttpSession sesion= request.getSession();
+           	HttpSession sesion= request.getSession();
 
-if(sesion.getAttribute("tipo")==null){
-    response.sendRedirect("index.jsp");
-    }
-else{
-    String nivel = sesion.getAttribute("tipo").toString();
-    if(!nivel.equals("1") && !nivel.equals("2") )
-      {response.sendRedirect("index.jsp");
-      }
-    }
-%>
+           if(sesion.getAttribute("tipo")==null){
+               response.sendRedirect("index.jsp");
+               }
+           else{
+               String nivel = sesion.getAttribute("tipo").toString();
+               if(!nivel.equals("1") && !nivel.equals("2") )
+                 {response.sendRedirect("index.jsp");
+                 }
+               }
+           %>
 
       <%
       	ToolLista lis_usu=new ToolLista();
-    	 DaoAlumnoIMPL sql= new DaoAlumnoIMPL();
-    	 BeanAlumno bean= new BeanAlumno();
-        lis_usu = sql.listarUsuarios();
+          	 Sql_Alumno sql= new Sql_Alumno();
+          	 BeanAlumno bean= new BeanAlumno();
+              lis_usu = sql.listarUsuarios();
       %>
     
 <!DOCTYPE html>

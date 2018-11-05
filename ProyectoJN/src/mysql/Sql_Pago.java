@@ -11,13 +11,13 @@ import util.SqlDBConn;
 import util.ToolLista;
 
 
-public class DaoPagoIMPL implements DaoPago {
+public class Sql_Pago implements DaoPago {
 
 	
 	private final  SqlDBConn mysql;
 	String SQL="";
 	int i=0;
-	public DaoPagoIMPL() 
+	public Sql_Pago() 
 	{
 		this.mysql = new SqlDBConn();
 	}

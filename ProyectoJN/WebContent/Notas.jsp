@@ -2,42 +2,42 @@
 <%@page import="jdk.nashorn.internal.runtime.ListAdapter"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
- <%@ page import="mysql.DaoNotasIMPL"%>
+ <%@ page import="mysql.Sql_Notas"%>
  <%@ page import="util.ToolLista"%>
  <%@ page import="Bean.BeanAlumno" %>
- <%@ page import="mysql.DaoAlumnoIMPL" %>
+ <%@ page import="mysql.Sql_Alumno" %>
  <%@ page import="Bean.BeanCurso" %>
- <%@ page import="mysql.DaoCursoIMPL" %>
+ <%@ page import="mysql.Sql_Curso" %>
  <%@page session="true"%> 
 
 <%
-HttpSession sesion= request.getSession();
+ 	HttpSession sesion= request.getSession();
 
-if(sesion.getAttribute("tipo")==null){
-    response.sendRedirect("index.jsp");
-    }
-else{
-    String nivel = sesion.getAttribute("tipo").toString();
-    if(!nivel.equals("1") && !nivel.equals("2") )
-      {response.sendRedirect("index.jsp");
-      }
-    }
-%>
+   if(sesion.getAttribute("tipo")==null){
+       response.sendRedirect("index.jsp");
+       }
+   else{
+       String nivel = sesion.getAttribute("tipo").toString();
+       if(!nivel.equals("1") && !nivel.equals("2") )
+         {response.sendRedirect("index.jsp");
+         }
+       }
+ %>
       <%
       	ToolLista lis_usu=new ToolLista();
-    	 DaoNotasIMPL sql= new DaoNotasIMPL();
-    	 BeanNotas bean= new BeanNotas();
-        lis_usu = sql.listarUsuarios();
-        
-        ToolLista lis_al=new ToolLista();
-	   	DaoAlumnoIMPL sql_al= new DaoAlumnoIMPL();
-	   	BeanAlumno bean_al= new BeanAlumno();
-	    lis_al = sql_al.listarUsuarios();
-	    
-	    ToolLista lis_cu=new ToolLista();
-	   	DaoCursoIMPL sql_cu= new DaoCursoIMPL();
-	   	BeanCurso bean_cu= new BeanCurso();
-	    lis_cu = sql_cu.listarUsuarios();	    
+                      	 Sql_Notas sql= new Sql_Notas();
+                      	 BeanNotas bean= new BeanNotas();
+                          lis_usu = sql.listarUsuarios();
+                          
+                          ToolLista lis_al=new ToolLista();
+                  	   	Sql_Alumno sql_al= new Sql_Alumno();
+                  	   	BeanAlumno bean_al= new BeanAlumno();
+                  	    lis_al = sql_al.listarUsuarios();
+                  	    
+                  	    ToolLista lis_cu=new ToolLista();
+                  	   	Sql_Curso sql_cu= new Sql_Curso();
+                  	   	BeanCurso bean_cu= new BeanCurso();
+                  	    lis_cu = sql_cu.listarUsuarios();
       %>
       
 <!DOCTYPE html>

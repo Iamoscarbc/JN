@@ -2,10 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
  <%@ page import="Bean.BeanPago"%>
- <%@ page import="mysql.DaoPagoIMPL"%>
+ <%@ page import="mysql.Sql_Pago"%>
  <%@ page import="util.ToolLista"%>
  <%@ page import="Bean.BeanAlumno" %>
- <%@ page import="mysql.DaoAlumnoIMPL" %>
+ <%@ page import="mysql.Sql_Alumno" %>
  <%@page session="true"%>
 
 <%
@@ -24,14 +24,14 @@ else{
 
       <%
       	ToolLista lis_usu=new ToolLista();
-     	 DaoPagoIMPL sql= new DaoPagoIMPL();
-     	 Bean.BeanPago bean= new Bean.BeanPago();
-         lis_usu = sql.listarUsuarios();
-         
-         ToolLista lis_al=new ToolLista();
- 	   	DaoAlumnoIMPL sql_al= new DaoAlumnoIMPL();
- 	   	BeanAlumno bean_al= new BeanAlumno();
- 	    lis_al = sql_al.listarUsuarios();
+                 	 Sql_Pago sql= new Sql_Pago();
+                 	 Bean.BeanPago bean= new Bean.BeanPago();
+                     lis_usu = sql.listarUsuarios();
+                     
+                     ToolLista lis_al=new ToolLista();
+             	   	Sql_Alumno sql_al= new Sql_Alumno();
+             	   	BeanAlumno bean_al= new BeanAlumno();
+             	    lis_al = sql_al.listarUsuarios();
       %>
 
 <!DOCTYPE html>

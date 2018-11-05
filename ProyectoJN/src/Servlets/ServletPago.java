@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Bean.BeanPago;
-import mysql.DaoPagoIMPL;
+import mysql.Sql_Pago;
 
 @WebServlet(name = "ServletPago", urlPatterns = {"/ServletPago"})
 public class ServletPago extends HttpServlet {
@@ -40,7 +40,7 @@ public class ServletPago extends HttpServlet {
 		pa.setImporte(Importe);
 		pa.setFecha_Pago(Fecha_Pago);
 		
-		DaoPagoIMPL DEI = new DaoPagoIMPL();
+		Sql_Pago DEI = new Sql_Pago();
 		
 	    if ("Agregar".equals(request.getParameter("btnAgregar"))) 
 	    {

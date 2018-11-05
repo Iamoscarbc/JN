@@ -11,13 +11,13 @@ import util.SqlDBConn;
 import util.ToolLista;
 
 
-public class DaoAlumnoIMPL implements DaoAlumno {
+public class Sql_Alumno implements DaoAlumno {
 
 	
 	private final  SqlDBConn mysql;
 	String SQL="";
 	int i=0;
-	public DaoAlumnoIMPL() 
+	public Sql_Alumno() 
 	{
 		this.mysql = new SqlDBConn();
 	}

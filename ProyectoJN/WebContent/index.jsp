@@ -1,7 +1,7 @@
 <%--
     Document   : pruebadelogin
     Created on : 15/10/2018, 11:39:03 AM
-    Author     : Sobrino
+    Author     : Oscar
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

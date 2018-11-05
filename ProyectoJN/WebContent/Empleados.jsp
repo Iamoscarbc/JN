@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%> 
  <%@ page import="Bean.BeanEmpleado"%>
- <%@ page import="mysql.DaoEmpleadoIMPL"%>
+ <%@ page import="mysql.Sql_Empleado"%>
  <%@ page import="util.ToolLista"%> 
  <%@page session="true"%>
 
@@ -21,17 +21,18 @@ else{
 %> 
  
  <%
-      	ToolLista lis_usu=new ToolLista();
- 		DaoEmpleadoIMPL sql= new DaoEmpleadoIMPL();
-        BeanEmpleado bean= new BeanEmpleado();
-        lis_usu = sql.listarEmpleados();
-  %>      
+   	ToolLista lis_usu=new ToolLista();
+    		Sql_Empleado sql= new Sql_Empleado();
+           BeanEmpleado bean= new BeanEmpleado();
+           lis_usu = sql.listarEmpleados();
+   %>      
 <!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 	<link rel="icon" type="image/png" href="img/flechas.png">
 	<title>Empleados</title>
 </head>
@@ -74,53 +75,13 @@ else{
 	  </div>
 	</nav>
 <div class="container">
-  <div class="row" style=" padding-top:50px">
-	  <div class="col-sm-3 " style="background-color: #222128;">
-		  <div class="card-body text-white">
-			<form action="ServletEmpleado" method="get">	
-	            <div class="form-group"> 
-				   <select class="form-control" id="idUsuario" name="idUsuario">
-				   <option value="null" selected="true" disabled="disabled">Seleccione Tipo</option>
-				   <option value="1">Administrador</option>
-				   <option value="2">Docente</option>
-				   <option value="3">Auxiliar</option>
-				   </select>
-				 </div>
-	            <div class="form-group">
-	                  <input type="text" placeholder="DNI" name="DNI" id="DNI" class="form-control">
-	            </div>
-	            <div class="form-group">
-	                  <input type="text" placeholder="Nombres" name="Nombres" id="Nombres" class="form-control">
-	            </div>
-	            <div class="form-group">
-	                  <input type="text" placeholder="Apellidos" name="Apellidos" id="Apellidos" class="form-control">
-	            </div>
-	            <div class="form-group">
-	                  <input type="text" placeholder="Direccion" name="Direccion" id="Direccion" class="form-control">
-	            </div>
-	            <div class="form-group">
-	                  <input type="text" placeholder="Telefono" name="Telefono" id="Telefono" class="form-control">
-	            </div>
-	            <div class="form-group">
-	                  <input type="text" placeholder="Edad" name="Edad" id="Edad" class="form-control">
-	            </div>		
-				<div class="form-group"> 
-				   <select class="form-control" id="Sexo" name="Sexo">
-				   <option value="null" selected="true" disabled="disabled">Seleccione Sexo</option>
-				   <option>Masculino</option>
-				   <option>Femenino</option>
-				   </select>
-				 </div>
-				 <div align="center">
-					<input type="submit" value="Agregar" name="btnAgregar" class="btn btn-outline-success" class="form-control"><br><br>
-					<input type="text" name="idEmpleado" placeholder="idEmpleado" id="idEmpleado" class="form-control"><br>
-					<input type="submit" value="Modificar" name="btnModificar" class="btn btn-outline-primary">
-					<input type="submit" value="Eliminar" name="btnEliminar" class="btn btn-outline-danger">
-				</div>
-			</form>
-		</div>
-	</div>
-	<div class="col-sm-9 bg-dark">	
+  <div class="row" style=" padding-top:20px">	  
+	<div class="col bg-dark">
+		<div>
+	    	<a href="#registroEmpleados" class="btn btn-success btn-md " id="Visualizar" data-toggle="modal">
+	    	<i class="fas fa-sign-in-alt"></i> Registrar</a>
+	    </div> 
+	    <br>	
 		<div class="table-responsive">
 			<table class="table table-bordered table-dark text-white">
 	        <tr>
@@ -151,10 +112,14 @@ else{
 				<td id="Edad1"><%=bean.getEdad() %></td>
 				<td id="Sexo1"><%=bean.getSexo() %></td>
 				<td>
-	            	<button name="btnEditar" value="Editar" id="Editar" class="btn btn-outline-primary">Editar</button>
+	            	<button name="btnEditar" value="Editar" id="Editar" class="btn btn-outline-primary">
+					<a href="#modificarEmpleados" id="Visualizar" data-toggle="modal" class="text-primary">Editar</a> 
+					</button> 
 	            </td>
 	            <td>
-	            	<button name="btnEliminar1" value="Eliminar" id="Eliminar1" class="btn btn-outline-danger">Eliminar</button>
+	            	<button name="btnRellenar" value="Rellenar" id="Rellenar" class="btn btn-outline-danger">
+	            	<a href="#eliminarEmpleados" id="Visualizar" data-toggle="modal" class="text-danger">Eliminar</a>
+	            	</button>
 	            </td>
 			  <tr>
 			<%} %>
@@ -163,9 +128,152 @@ else{
        </div>
 	</div>
   </div>
+	
+	<div class="modal fade" id="registroEmpleados">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content" style="background-color: #000000;">
+						<div class="modal-header">
+						<h3 class="modal-tittle text-center text-white" id="tittleModal">Empleados</h3>
+						<button type="button" class="close" id="ClosePro" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body">
+							<div id="modalEmpleados">
+						<div class="col" style="background-color: #222128;">
+				          <div class="card-body text-white">
+				            <form action="ServletEmpleado" method="get">	
+					            <div class="form-group"> 
+								   <select class="form-control" name="idUsuario" required>
+								   <option value="null" selected="true" disabled="disabled">Seleccione Tipo</option>
+								   <option value="1">Administrador</option>
+								   <option value="2">Docente</option>
+								   <option value="3">Auxiliar</option>
+								   </select>
+								 </div>
+					            <div class="form-group">
+					                  <input type="text" placeholder="DNI" name="DNI" class="form-control" required>
+					            </div>
+					            <div class="form-group">
+					                  <input type="text" placeholder="Nombres" name="Nombres" class="form-control" required>
+					            </div>
+					            <div class="form-group">
+					                  <input type="text" placeholder="Apellidos" name="Apellidos" class="form-control" required>
+					            </div>
+					            <div class="form-group">
+					                  <input type="text" placeholder="Direccion" name="Direccion" class="form-control" required>
+					            </div>
+					            <div class="form-group">
+					                  <input type="text" placeholder="Telefono" name="Telefono" class="form-control" required>
+					            </div>
+					            <div class="form-group">
+					                  <input type="text" placeholder="Edad" name="Edad" class="form-control" required>
+					            </div>		
+								<div class="form-group"> 
+								   <select class="form-control" name="Sexo" required>
+								   <option value="null" selected="true" disabled="disabled">Seleccione Sexo</option>
+								   <option>Masculino</option>
+								   <option>Femenino</option>
+								   </select>
+								 </div>
+								 <div align="center">
+									<input type="submit" value="Agregar" name="btnAgregar" class="btn btn-outline-success" class="form-control">
+								</div>
+							</form>
+				          </div>
+				        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="modificarEmpleados">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content" style="background-color: #000000;">
+						<div class="modal-header">
+						<h3 class="modal-tittle text-center text-white" id="tittleModal">Modificar Empleados</h3>
+						<button type="button" class="close" id="ClosePro" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body">
+							<div id="modalEmpleados">
+						<div class="col" style="background-color: #222128;">
+				          <div class="card-body text-white">
+				            <form action="ServletEmpleado" method="get">	
+					            <div class="form-group"> 
+								   <select class="form-control" id="idUsuario" name="idUsuario" required>
+								   <option value="null" selected="true" disabled="disabled">Seleccione Tipo</option>
+								   <option value="1">Administrador</option>
+								   <option value="2">Docente</option>
+								   <option value="3">Auxiliar</option>
+								   </select>
+								 </div>
+					            <div class="form-group">
+					                  <input type="text" placeholder="DNI" name="DNI" id="DNI" class="form-control" required>
+					            </div>
+					            <div class="form-group">
+					                  <input type="text" placeholder="Nombres" name="Nombres" id="Nombres" class="form-control" required>
+					            </div>
+					            <div class="form-group">
+					                  <input type="text" placeholder="Apellidos" name="Apellidos" id="Apellidos" class="form-control" required>
+					            </div>
+					            <div class="form-group">
+					                  <input type="text" placeholder="Direccion" name="Direccion" id="Direccion" class="form-control" required>
+					            </div>
+					            <div class="form-group">
+					                  <input type="text" placeholder="Telefono" name="Telefono" id="Telefono" class="form-control" required>
+					            </div>
+					            <div class="form-group">
+					                  <input type="text" placeholder="Edad" name="Edad" id="Edad" class="form-control" required>
+					            </div>		
+								<div class="form-group"> 
+								   <select class="form-control" id="Sexo" name="Sexo" required>
+								   <option value="null" selected="true" disabled="disabled">Seleccione Sexo</option>
+								   <option>Masculino</option>
+								   <option>Femenino</option>
+								   </select>
+								 </div>
+								 <div align="center">
+								 	<input type="text" name="idEmpleado" placeholder="idEmpleado" id="idEmpleado" class="form-control" required><br>
+									<input type="submit" value="Modificar" name="btnModificar" class="btn btn-outline-primary">
+								</div>
+							</form>
+				          </div>
+				        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="eliminarEmpleados">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content" style="background-color: #000000;">
+					<div class="modal-header">
+					<h3 class="modal-tittle text-center text-white" id="tittleModal">Eliminar Empleados</h3>
+					<button type="button" class="close" id="ClosePro" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body">
+						<div id="modalEmpleados">
+							<div class="col" style="background-color: #222128;">
+					          <div class="card-body text-white">
+					            <form action="ServletEmpleado" method="get">               
+					                  <div align="center">
+					                  <label>¿Desea Eliminar a el Empleado con el siguiente ID?</label>
+					                  	<input type="text" placeholder="idEmpleado" name="idEmpleado" id="idEmpleadoE" class="form-control" required><br>
+					                    <input type="submit" value="Eliminar" name="btnEliminar" class="btn btn-outline-danger">
+					                  </div>
+					            </form>
+					          </div>
+					        </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
    <script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
    <script src="js/bootstrap.min.js" type="text/javascript"></script>
    <script src="js/popper.min.js" type="text/javascript"></script>
-   <script src="ajaxEmpleados.js" type="text/javascript"></script>
+   <script src="Ajax/ajaxEmpleados/editar.js" type="text/javascript"></script>
+   <script src="Ajax/ajaxEmpleados/eliminar.js" type="text/javascript"></script>
 </body>
 </html>
