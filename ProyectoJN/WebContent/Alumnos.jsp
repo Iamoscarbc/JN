@@ -30,12 +30,12 @@ else{
 <!DOCTYPE html>
 <html>
     <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>	
-	<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
 	<link rel="stylesheet" href="fontawesome-free-5.4.1-web/css/fontawesome.min.css">
+	
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 	<link rel="icon" type="image/png" href="img/flechas.png">
 <title>Alumnos</title>
@@ -84,12 +84,23 @@ else{
 	<div class="container">	
 	<div class="row" style="padding-top:20px">  	      
           <div class="col bg-dark">
-          	<div>
-		    	<a href="#registroAlumnos" class="btn btn-success btn-md " id="Visualizar" data-toggle="modal"><i class="fas fa-sign-in-alt"></i> Registrar</a>
+          	<div class="row">
+          	<div class="col">
+		    	<a href="#registroAlumnos" class="btn btn-primary btn-md " id="Visualizar" data-toggle="modal"><i class="fas fa-sign-in-alt"></i> Registrar</a>
 		    </div> 
+		    <div class="col">
+		    	<button id="btnDescargarExcel" class="btn btn-success btn-md">Exportar Excel</button>		    	
+		    </div>
+		    <div class="col">
+		    	<button id="descargarPDF" class="btn btn-warning btn-md">Exportar PDF</button>	  
+		    </div>
+		    <div class="col-sm-7">
+		    	<a>Search</a>
+		    </div>
+		    </div>
 		    <br>	
             <div class="table-responsive">
-              <table class="table table-bordered table-dark text-white">
+              <table id="tablaAlumnos" class="table table-bordered table-dark text-white">
                 <thead>
                   <tr>
                         <th>#</th>
@@ -151,22 +162,22 @@ else{
 			          <div class="card-body text-white">
 			            <form action="ServletAlumno" method="get">                
 			                <div class="form-group">
-			                  <input type="text" placeholder="DNI" name="DNI" class="form-control" required>
+			                  <input type="text" placeholder="DNI" name="DNI" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-			                  <input type="text" placeholder="Nombres" name="Nombres" class="form-control" required>
+			                  <input type="text" placeholder="Nombres" name="Nombres" class="form-control" required onkeypress="return sololetras(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-			                    <input type="text" placeholder="Apellidos" name="Apellidos" class="form-control" required>
+			                    <input type="text" placeholder="Apellidos" name="Apellidos" class="form-control" required onkeypress="return sololetras(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-			                    <input type="text" placeholder="Direccion" name="Direccion" class="form-control" required>
+			                    <input type="text" placeholder="Direccion" name="Direccion" class="form-control" required onkeypress="return direccion(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-			                    <input type="text" placeholder="Telefono"  name="Telefono"class="form-control" required>
+			                    <input type="text" placeholder="Telefono"  name="Telefono"class="form-control" required onkeypress="return telefono(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-			                    <input type="text" placeholder="Edad"  name="Edad" class="form-control" required>
+			                    <input type="text" placeholder="Edad"  name="Edad" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
 							    <select class="form-control" name="Grado" required>
@@ -209,22 +220,22 @@ else{
 			          <div class="card-body text-white">
 			            <form action="ServletAlumno" method="get">                
 			                <div class="form-group">
-			                  <input type="text" placeholder="DNI" name="DNI" id="DNI" class="form-control" required>
+			                  <input type="text" placeholder="DNI" name="DNI" id="DNI" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-			                  <input type="text" placeholder="Nombres" name="Nombres" id="Nombres" class="form-control" required>
+			                  <input type="text" placeholder="Nombres" name="Nombres" id="Nombres" class="form-control" required onkeypress="return sololetras(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-			                    <input type="text" placeholder="Apellidos" name="Apellidos" id="Apellidos" class="form-control" required>
+			                    <input type="text" placeholder="Apellidos" name="Apellidos" id="Apellidos" class="form-control" required onkeypress="return sololetras(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-			                    <input type="text" placeholder="Direccion" name="Direccion" id="Direccion" class="form-control" required>
+			                    <input type="text" placeholder="Direccion" name="Direccion" id="Direccion" class="form-control" required onkeypress="return direccion(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-			                    <input type="text" placeholder="Telefono"  name="Telefono" id="Telefono" class="form-control" required>
+			                    <input type="text" placeholder="Telefono"  name="Telefono" id="Telefono" class="form-control" required onkeypress="return telefono(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-			                    <input type="text" placeholder="Edad"  name="Edad" id="Edad" class="form-control" required>
+			                    <input type="text" placeholder="Edad"  name="Edad" id="Edad" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
 							    <select class="form-control" id="Grado" name="Grado" required>
@@ -243,7 +254,7 @@ else{
 							    </select>
 							  </div>     
 							  <div align="center">
-			                  	<input type="text" placeholder="idAlumno" name="idAlumno" id="idAlumno" class="form-control" required><br>
+			                  	<input type="text" placeholder="idAlumno" name="idAlumno" id="idAlumno" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false"><br>
 			                    <input type="submit" value="Modificar" name="btnModificar" class="btn btn-outline-primary">
 			                  </div>
 			            </form>
@@ -269,7 +280,7 @@ else{
 					            <form action="ServletAlumno" method="get">               
 					                  <div align="center">
 					                  <label>¿Desea Eliminar a el alumno con el siguiente ID?</label>
-					                  	<input type="text" placeholder="idAlumno" name="idAlumno" id="idAlumnoE" class="form-control" required><br>
+					                  	<input type="text" placeholder="idAlumno" name="idAlumno" id="idAlumnoE" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false"><br>
 					                    <input type="submit" value="Eliminar" name="btnEliminar" class="btn btn-outline-danger">
 					                  </div>
 					            </form>
@@ -281,10 +292,89 @@ else{
 			</div>
 		</div>
 		
+		<script>
+			function sololetras(e){
+				key=e.keyCode || e.which;
+				teclado=String.fromCharCode(key).toLowerCase();
+				letras=" abcdefghijklmnñopqrstuvwxyz";
+				especiales="8-37-38-46-164";
+				teclado_especial=false;
+				
+				for(var i in especiales){
+					if(key==especiales[i]){
+						teclado_especial=true;break;
+					}
+				}
+				if(letras.indexOf(teclado)==-1 && !teclado_especial){
+					return false;
+				}
+			}		
+		</script>
+		
+		<script>
+			function solonumeros(e){
+				key=e.keyCode || e.which;
+				teclado=String.fromCharCode(key);
+				numeros="0123456789";
+				especiales="8-37-38-46-164";
+				teclado_especial=false;
+				
+				for(var i in especiales){
+					if(key==especiales[i]){
+						teclado_especial=true;break;
+					}
+				}
+				if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+					return false;
+				}
+			}
+		</script>
+		
+		<script>
+			function telefono(e){
+				key=e.keyCode || e.which;
+				teclado=String.fromCharCode(key);
+				numeros="+0123456789";
+				especiales="8-37-38-46-164";
+				teclado_especial=false;
+				
+				for(var i in especiales){
+					if(key==especiales[i]){
+						teclado_especial=true;break;
+					}
+				}
+				if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+					return false;
+				}
+			}
+		</script>
+		
+		<script>
+			function direccion(e){
+				key=e.keyCode || e.which;
+				teclado=String.fromCharCode(key);
+				numeros=" abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ-0123456789.";
+				especiales="8-37-38-46-164";
+				teclado_especial=false;
+				
+				for(var i in especiales){
+					if(key==especiales[i]){
+						teclado_especial=true;break;
+					}
+				}
+				if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+					return false;
+				}
+			}
+		</script>
+		
+		
    <script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
    <script src="js/bootstrap.min.js" type="text/javascript"></script>
    <script src="js/popper.min.js" type="text/javascript"></script>
    <script src="Ajax/ajaxAlumnos/editar.js" type="text/javascript"></script>
    <script src="Ajax/ajaxAlumnos/eliminar.js" type="text/javascript"></script>
+   <script src="Ajax/ajaxAlumnos/tableToExcel.js" type="text/javascript"></script>
+   <script src="Ajax/ajaxAlumnos/descargarPDF.js" type="text/javascript"></script>
 </body>
 </html>

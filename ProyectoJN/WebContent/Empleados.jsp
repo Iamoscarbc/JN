@@ -150,22 +150,22 @@ else{
 								   </select>
 								 </div>
 					            <div class="form-group">
-					                  <input type="text" placeholder="DNI" name="DNI" class="form-control" required>
+					                  <input type="text" placeholder="DNI" name="DNI" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
 					            </div>
 					            <div class="form-group">
-					                  <input type="text" placeholder="Nombres" name="Nombres" class="form-control" required>
+					                  <input type="text" placeholder="Nombres" name="Nombres" class="form-control" required onkeypress="return sololetras(event)" onpaste="return false">
 					            </div>
 					            <div class="form-group">
-					                  <input type="text" placeholder="Apellidos" name="Apellidos" class="form-control" required>
+					                  <input type="text" placeholder="Apellidos" name="Apellidos" class="form-control" required onkeypress="return sololetras(event)" onpaste="return false">
 					            </div>
 					            <div class="form-group">
-					                  <input type="text" placeholder="Direccion" name="Direccion" class="form-control" required>
+					                  <input type="text" placeholder="Direccion" name="Direccion" class="form-control" required onkeypress="return direccion(event)" onpaste="return false">
 					            </div>
 					            <div class="form-group">
-					                  <input type="text" placeholder="Telefono" name="Telefono" class="form-control" required>
+					                  <input type="text" placeholder="Telefono" name="Telefono" class="form-control" required onkeypress="return telefono(event)" onpaste="return false">
 					            </div>
 					            <div class="form-group">
-					                  <input type="text" placeholder="Edad" name="Edad" class="form-control" required>
+					                  <input type="text" placeholder="Edad" name="Edad" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
 					            </div>		
 								<div class="form-group"> 
 								   <select class="form-control" name="Sexo" required>
@@ -207,22 +207,22 @@ else{
 								   </select>
 								 </div>
 					            <div class="form-group">
-					                  <input type="text" placeholder="DNI" name="DNI" id="DNI" class="form-control" required>
+					                  <input type="text" placeholder="DNI" name="DNI" id="DNI" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
 					            </div>
 					            <div class="form-group">
-					                  <input type="text" placeholder="Nombres" name="Nombres" id="Nombres" class="form-control" required>
+					                  <input type="text" placeholder="Nombres" name="Nombres" id="Nombres" class="form-control" required onkeypress="return sololetras(event)" onpaste="return false">
 					            </div>
 					            <div class="form-group">
-					                  <input type="text" placeholder="Apellidos" name="Apellidos" id="Apellidos" class="form-control" required>
+					                  <input type="text" placeholder="Apellidos" name="Apellidos" id="Apellidos" class="form-control" required onkeypress="return sololetras(event)" onpaste="return false">
 					            </div>
 					            <div class="form-group">
-					                  <input type="text" placeholder="Direccion" name="Direccion" id="Direccion" class="form-control" required>
+					                  <input type="text" placeholder="Direccion" name="Direccion" id="Direccion" class="form-control" required onkeypress="return direccion(event)" onpaste="return false">
 					            </div>
 					            <div class="form-group">
-					                  <input type="text" placeholder="Telefono" name="Telefono" id="Telefono" class="form-control" required>
+					                  <input type="text" placeholder="Telefono" name="Telefono" id="Telefono" class="form-control" required onkeypress="return telefono(event)" onpaste="return false">
 					            </div>
 					            <div class="form-group">
-					                  <input type="text" placeholder="Edad" name="Edad" id="Edad" class="form-control" required>
+					                  <input type="text" placeholder="Edad" name="Edad" id="Edad" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
 					            </div>		
 								<div class="form-group"> 
 								   <select class="form-control" id="Sexo" name="Sexo" required>
@@ -232,7 +232,7 @@ else{
 								   </select>
 								 </div>
 								 <div align="center">
-								 	<input type="text" name="idEmpleado" placeholder="idEmpleado" id="idEmpleado" class="form-control" required><br>
+								 	<input type="text" name="idEmpleado" placeholder="idEmpleado" id="idEmpleado" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false"><br>
 									<input type="submit" value="Modificar" name="btnModificar" class="btn btn-outline-primary">
 								</div>
 							</form>
@@ -258,7 +258,7 @@ else{
 					            <form action="ServletEmpleado" method="get">               
 					                  <div align="center">
 					                  <label>¿Desea Eliminar a el Empleado con el siguiente ID?</label>
-					                  	<input type="text" placeholder="idEmpleado" name="idEmpleado" id="idEmpleadoE" class="form-control" required><br>
+					                  	<input type="text" placeholder="idEmpleado" name="idEmpleado" id="idEmpleadoE" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false"><br>
 					                    <input type="submit" value="Eliminar" name="btnEliminar" class="btn btn-outline-danger">
 					                  </div>
 					            </form>
@@ -269,6 +269,105 @@ else{
 				</div>
 			</div>
 		</div>
+		
+		<script>
+			function sololetras(e){
+				key=e.keyCode || e.which;
+				teclado=String.fromCharCode(key).toLowerCase();
+				letras=" abcdefghijklmnñopqrstuvwxyz";
+				especiales="8-37-38-46-164";
+				teclado_especial=false;
+				
+				for(var i in especiales){
+					if(key==especiales[i]){
+						teclado_especial=true;break;
+					}
+				}
+				if(letras.indexOf(teclado)==-1 && !teclado_especial){
+					return false;
+				}
+			}		
+		</script>
+		
+		<script>
+			function solonumeros(e){
+				key=e.keyCode || e.which;
+				teclado=String.fromCharCode(key);
+				numeros="0123456789";
+				especiales="8-37-38-46-164";
+				teclado_especial=false;
+				
+				for(var i in especiales){
+					if(key==especiales[i]){
+						teclado_especial=true;break;
+					}
+				}
+				if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+					return false;
+				}
+			}
+		</script>
+		
+		<script>
+			function telefono(e){
+				key=e.keyCode || e.which;
+				teclado=String.fromCharCode(key);
+				numeros="+0123456789";
+				especiales="8-37-38-46-164";
+				teclado_especial=false;
+				
+				for(var i in especiales){
+					if(key==especiales[i]){
+						teclado_especial=true;break;
+					}
+				}
+				if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+					return false;
+				}
+			}
+		</script>
+		
+		<script>
+			function direccion(e){
+				key=e.keyCode || e.which;
+				teclado=String.fromCharCode(key);
+				numeros=" abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ-0123456789.";
+				especiales="8-37-38-46-164";
+				teclado_especial=false;
+				
+				for(var i in especiales){
+					if(key==especiales[i]){
+						teclado_especial=true;break;
+					}
+				}
+				if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+					return false;
+				}
+			}
+		</script>
+		
+		<script>
+			function edad(e){
+				var Age=parseInt(document.getElementByName('Edad').value);
+				if(Age <0 && Age >101){console.log(Age);}
+				else{}
+				key=e.keyCode || e.which;
+				teclado=String.fromCharCode(key);
+				numeros="0123456789";
+				especiales="8-37-38-46-164";
+				teclado_especial=false;
+				
+				for(var i in especiales){
+					if(key==especiales[i]){
+						teclado_especial=true;break;
+					}
+				}
+				if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+					return false;
+				}
+				}
+			}
+		</script>
 	
    <script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
    <script src="js/bootstrap.min.js" type="text/javascript"></script>
