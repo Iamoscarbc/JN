@@ -30,8 +30,11 @@ else{
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
-	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>	
+	<link rel="stylesheet" href="fontawesome-free-5.4.1-web/css/fontawesome.min.css">
+	
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 	<link rel="icon" type="image/png" href="img/flechas.png">
 	<title>Empleados</title>
@@ -77,13 +80,23 @@ else{
 <div class="container">
   <div class="row" style=" padding-top:20px">	  
 	<div class="col bg-dark">
-		<div>
-	    	<a href="#registroEmpleados" class="btn btn-success btn-md " id="Visualizar" data-toggle="modal">
-	    	<i class="fas fa-sign-in-alt"></i> Registrar</a>
-	    </div> 
-	    <br>	
+		<div class="row">
+          	<div class="col">
+		    	<a href="#registroEmpleados" class="btn btn-primary btn-md " id="Visualizar" data-toggle="modal"><i class="fas fa-sign-in-alt"></i> Registrar</a>
+		    </div> 
+		    <div class="col">
+		    	<button id="btnDescargarExcel" class="btn btn-success btn-md">Exportar Excel</button>		    	
+		    </div>
+		    <div class="col">
+		    	<button id="descargarPDF" class="btn btn-warning btn-md">Exportar PDF</button>	  
+		    </div>
+		    <div class="col-sm-7">
+		    	<a>Search</a>
+		    </div>
+		    </div>
+		    <br>		
 		<div class="table-responsive">
-			<table class="table table-bordered table-dark text-white">
+			<table id="tablaEmpleados" class="table table-bordered table-dark text-white">
 	        <tr>
 	            <th>#Empleado</th>
 	            <th>#Usuario</th>
@@ -374,5 +387,6 @@ else{
    <script src="js/popper.min.js" type="text/javascript"></script>
    <script src="Ajax/ajaxEmpleados/editar.js" type="text/javascript"></script>
    <script src="Ajax/ajaxEmpleados/eliminar.js" type="text/javascript"></script>
+   <script src="Ajax/ajaxEmpleados/tableToExcel.js" type="text/javascript"></script>
 </body>
 </html>

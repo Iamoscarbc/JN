@@ -10,9 +10,7 @@ import util.SqlDBConn;
 import util.ToolLista;
 import Bean.BeanNotas;
 
-
 public class Sql_Notas implements DaoNotas {
-
 
 	private final  SqlDBConn mysql;
 	String SQL="";
@@ -25,7 +23,6 @@ public class Sql_Notas implements DaoNotas {
 	@Override
 	public void ingresar(BeanNotas no) throws Exception
 	{
-
 		SQL="INSERT INTO notas (idCurso, idAlumno, Bim_1, Bim_2, Bim_3, Bim_4) VALUES(?,?,?,?,?,?)";
 		mysql.establecerConexion();
 		Connection conectado = mysql.getConnection();
@@ -74,8 +71,6 @@ public class Sql_Notas implements DaoNotas {
 		{
 			mysql.cerrarConexion();
 		}
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

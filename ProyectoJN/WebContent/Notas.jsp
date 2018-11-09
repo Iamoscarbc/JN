@@ -1,7 +1,7 @@
-<%@page import="Bean.BeanNotas"%>
 <%@page import="jdk.nashorn.internal.runtime.ListAdapter"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+ <%@page import="Bean.BeanNotas"%>
  <%@ page import="mysql.Sql_Notas"%>
  <%@ page import="util.ToolLista"%>
  <%@ page import="Bean.BeanAlumno" %>
@@ -43,10 +43,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-  <link rel="icon" type="image/png" href="img/flechas.png">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>	
+	<link rel="stylesheet" href="fontawesome-free-5.4.1-web/css/fontawesome.min.css">
+	
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<link rel="icon" type="image/png" href="img/flechas.png">
 <title>Notas</title>
     </head>
 <body class="bg-dark">
