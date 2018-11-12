@@ -1,7 +1,7 @@
 $('#btnDescargarExcel').on('click',requestDescargar);
 
 function requestDescargar(){
-	tableToExcel('tablaMatricula', 'Matricula');
+	tableToExcel('tablaMatricula2', 'Matricula');
 }
 
 

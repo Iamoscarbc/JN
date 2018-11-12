@@ -198,6 +198,9 @@
  		     </script>
 			
             <%--TABLA INVISIBLE --%>
+            <div class="" id="loadingPDF" style="display: none;">
+                 <a href="#" class="btn btn-primary btn-lg">Procesando Documento PDF<i class="fas fa-spinner fa-spin" ></i></a>
+            </div>
             <div class="table-responsive"  id="tablaMatricula2" style="padding: 20px; display: none; background: white ">
               <table class="table table-bordered table-dark text-white">
                 <thead>
@@ -306,7 +309,7 @@
 				                  	<input type="number" placeholder="idEmpleado" name="idEmpleado" id="idEmpleadoM" class="form-control" style="width:200px;" required onkeypress="return solonumeros(event)" onpaste="return false">
 				                  </div>
 				                  <div class="col-5" style="padding-left: 1px;">
-				                  	<a href="#ventanaEmpleados" class="btn btn-dark btn-md" id="Visualizar" data-toggle="modal">Seleccionar</a>
+				                  	<a href="#ventanaEmpleados2" class="btn btn-dark btn-md" id="Visualizar" data-toggle="modal">Seleccionar</a>
 				                  </div>
 			                  </div>
 			                </div>
@@ -316,7 +319,7 @@
 				                  	<input type="number" placeholder="idAlumno" name="idAlumno" id="idAlumnoM" class="form-control" style="width:200px;" required onkeypress="return solonumeros(event)" onpaste="return false">
 				                  </div>
 				                  <div class="col-5" style="padding-left: 1px;">
-				                  	<a href="#ventanaAlumnos" class="btn btn-dark btn-md" id="Visualizar" data-toggle="modal">Seleccionar</a>
+				                  	<a href="#ventanaAlumnos2" class="btn btn-dark btn-md" id="Visualizar" data-toggle="modal">Seleccionar</a>
 				                  </div>
 			                  </div>
 			                </div>
@@ -326,7 +329,7 @@
 				                  	<input type="number" placeholder="idPagos" name="idPagos" id="idPagosM" class="form-control" style="width:200px;" required onkeypress="return solonumeros(event)" onpaste="return false">
 				                  </div>
 				                  <div class="col-5" style="padding-left: 1px;">
-				                  	<a href="#ventanaPagos" class="btn btn-dark btn-md" id="Visualizar" data-toggle="modal">Seleccionar</a>
+				                  	<a href="#ventanaPagos2" class="btn btn-dark btn-md" id="Visualizar" data-toggle="modal">Seleccionar</a>
 				                  </div>
 			                  </div>
 			                </div>
@@ -414,6 +417,49 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="modal fade" id="ventanaEmpleados2">
+				<div class="modal-dialog modal-lg modal-dialog-centered">
+					<div class="modal-content" style="background-color: #000000;">
+						<div class="modal-header">
+						<h3 class="modal-tittle text-center text-white" id="tittleModal">Empleados</h3>
+						<button type="button" class="close" id="ClosePro" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body">
+							<div id="modalEmpleados">
+							<div class="table-responsive">
+									 <table id="tableCurso" class="table table-dark table-bordered table-hover mt-2 text-center">
+								        <tr>
+								            <th>#Empleado</th>
+											<th>DNI</th>
+											<th>Nombres</th>
+											<th>Apellidos</th>
+								        </tr>
+								        	<%
+								        	 for(int i=0;i<lis_em.getTamanio();i++)
+				                                {bean_em=(BeanEmpleado)lis_em.getElemento(i);
+								        	%>
+								        <tr>
+											<td id ="idEmpleadoModal"><%=bean_em.getIdEmpleado()%></td>
+				                            <td id ="DNI_EModal"><%=bean_em.getDNI()%></td>
+				                            <td id ="Nombres_EModal"><%=bean_em.getNombres()%></td>
+				                            <td id ="Apellidos_EModal"><%=bean_em.getApellidos()%></td>
+											<td>
+                           					<button class="btn btn-dark" id="Seleccionar4">Seleccionar</button>
+                        					</td>
+										  </tr>
+										<%} %>
+								       </table>
+			                   </div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
 		<div class="modal fade" id="ventanaAlumnos">
 				<div class="modal-dialog modal-lg modal-dialog-centered">
@@ -443,6 +489,49 @@
 				                            <td id ="Apellidos_AModal"><%=bean_al.getApellidos()%></td>
 											<td>
                            					<button class="btn btn-dark" id="Seleccionar">Seleccionar</button>
+                        					</td>
+										  </tr>
+										<%} %>
+								       </table>
+			                   </div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="modal fade" id="ventanaAlumnos2">
+				<div class="modal-dialog modal-lg modal-dialog-centered">
+					<div class="modal-content" style="background-color: #000000;">
+						<div class="modal-header">
+						<h3 class="modal-tittle text-center text-white" id="tittleModal">Alumnos</h3>
+						<button type="button" class="close" id="ClosePro" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body">
+							<div id="modalAlumnos">
+							<div class="table-responsive">
+									 <table id="tableAlumnos" class="table table-dark table-bordered table-hover mt-2 text-center">
+								        <tr>
+								            <th>#Alumno</th>
+											<th>DNI</th>
+											<th>Nombres</th>
+											<th>Apellidos</th>
+								        </tr>
+								        	<%
+								        	 for(int i=0;i<lis_al.getTamanio();i++)
+				                                {bean_al=(BeanAlumno)lis_al.getElemento(i);
+								        	%>
+								        <tr>
+											<td id ="idAlumnoModal"><%=bean_al.getIdAlumno()%></td>
+				                            <td id ="DNI_AModal"><%=bean_al.getDNI()%></td>
+				                            <td id ="Nombres_AModal"><%=bean_al.getNombres()%></td>
+				                            <td id ="Apellidos_AModal"><%=bean_al.getApellidos()%></td>
+											<td>
+                           					<button class="btn btn-dark" id="Seleccionar3">Seleccionar</button>
                         					</td>
 										  </tr>
 										<%} %>
@@ -490,6 +579,53 @@
 											<td id ="Fecha_PagoModal"><%=bean_pa.getFecha_Pago()%></td>
 											<td>
                            					<button class="btn btn-dark" id="Seleccionar2">Seleccionar</button>
+                        					</td>
+										  </tr>
+										<%} %>
+								       </table>
+			                   </div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="modal fade" id="ventanaPagos2">
+				<div class="modal-dialog modal-lg modal-dialog-centered">
+					<div class="modal-content" style="background-color: #000000;">
+						<div class="modal-header">
+						<h3 class="modal-tittle text-center text-white" id="tittleModal">Pagos</h3>
+						<button type="button" class="close" id="ClosePro" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body">
+							<div id="modalPagos">
+							<div class="table-responsive">
+									 <table id="tableAlumnos" class="table table-dark table-bordered table-hover mt-2 text-center">
+								        <tr>
+								            <th>#Pagos</th>
+											<th>#Alumno</th>
+											<th>DNI_R</th>
+											<th>Concepto</th>
+											<th>Importe</th>
+											<th>Fecha_Pago</th>
+								        </tr>
+								        	<%
+								        	 for(int i=0;i<lis_pa.getTamanio();i++)
+				                                {bean_pa=(BeanPago)lis_pa.getElemento(i);
+								        	%>
+								        <tr>
+											<td id ="idPagosModal"><%=bean_pa.getIdPagos()%></td>
+											<td id ="idAlumno_PModal"><%=bean_pa.getIdAlumno()%></td>
+											<td id ="DNI_RModal"><%=bean_pa.getDNI_R()%></td>
+											<td id ="ConceptoModal"><%=bean_pa.getConcepto()%></td>
+											<td id ="ImporteModal"><%=bean_pa.getImporte()%></td>
+											<td id ="Fecha_PagoModal"><%=bean_pa.getFecha_Pago()%></td>
+											<td>
+                           					<button class="btn btn-dark" id="Seleccionar5">Seleccionar</button>
                         					</td>
 										  </tr>
 										<%} %>
