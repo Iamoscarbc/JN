@@ -10,7 +10,7 @@ $(function() {
   $.ajax({
     success: function(response)
     {
-      $("#idAlumno").val(idAlumno);
+      $("#idAlumnoM").val(idAlumno);
       $("#DNI").val(DNI);
       $("#Nombres").val(Nombres);
       $("#Apellidos").val(Apellidos);
@@ -31,7 +31,7 @@ $(function() {
   $.ajax({
     success: function(response)
     {
-      $("#idEmpleado").val(idEmpleadoModal);
+      $("#idEmpleadoM").val(idEmpleadoModal);
       $("#DNI_E").val(DNI_EModal);
       $("#Nombres_E").val(Nombres_EModal);
       $("#Apellidos_E").val(Apellidos_EModal);
@@ -54,8 +54,8 @@ $(function() {
   $.ajax({
     success: function(response)
     {
-      $("#idPagos").val(idPagosModal);
-      $("#idAlumno").val(idAlumno_PModal);
+      $("#idPagosM").val(idPagosModal);
+      $("#idAlumnoM").val(idAlumno_PModal);
       $("#DNI_R").val(DNI_RModal);
       $("#Concepto").val(ConceptoModal);
       $("#Importe").val(ImporteModal);

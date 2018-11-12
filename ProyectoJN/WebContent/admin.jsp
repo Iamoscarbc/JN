@@ -27,9 +27,13 @@ else{
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link rel="icon" type="image/png" href="img/flechas.png">
+        <link rel="stylesheet" href="WEBHTML/css/bootstrap.min.css" >
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="WEBHTML/fontawesome-free-5.0.13/web-fonts-with-css/css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="WEBHTML/css/menuPrincipal.css">
         <title>ADMINISTRADOR</title>
     </head>
-    <body class="bg-dark">   
+    <body class="">    
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000;" >
 	  <a class="navbar-brand" href="admin.jsp">Bienvenido Administrador</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,34 +72,29 @@ else{
 	  </div>
 	</nav>
 	
-	<br>
-	<br>
-	<h1 class="text-white" align="center">AQUI PRONTO UN PERFIL</h1>
-	<div align="center"><img class="img-responsive mt-3" src="img/user-icon.png" style="width:600px"></div> 
-	
-<%-- 	/*<div id="main" class="" >
-            <div class="row d-flex justify-content-center ">
+	<div id="main" class="" >
+            <div class="row d-flex justify-content-center">
                 <div class="col-md-11">
                     <div class="row mt-5 ">
                         <div class="col-md-3" style="box-shadow: inset 1px 1px #dedfe0,inset 0 -1px #dedfe0;">
                             <div class="col-md-12" align="center">
-                                <img class="img-responsive mt-3" src="<%out.print(usuario.getImagen()); %>" alt="" style="border-radius: 5px; -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+                                <img class="img-responsive mt-3" src="https://scontent.flim15-2.fna.fbcdn.net/v/t1.0-9/16649398_1327719173954870_8319642785834999636_n.jpg?_nc_cat=109&_nc_ht=scontent.flim15-2.fna&oh=939d0003405a109e0ac2bec306e00b7c&oe=5C70F3F1" alt="" style="border-radius: 5px; -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 								-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 								box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);"  width="120" height="150">
                             </div>
                             <div class="col-md-12" style="text-align: center">
                                 <h4>
-                                    <p><small><%out.print(usuario.getNombre() + " "+usuario.getApellido()); %></small> </p>
+                                    <p><small>Oscar Manuel Bravo Carbajal</small> </p>
                                 </h4>
                             </div>
                             <hr class="row">
                             <div class="row">
-                                <div class="list-group" style="width:100%;">
+                                <div class="list-group" style="width:100%;">                                    
+                                    <a href="admin.jsp" class="list-group-item list-group-item-action">
+                                    <i class="fas fa-address-card"></i>Mi perfil</a>
                                     <a href="index.html" class="list-group-item list-group-item-action">
                                     <i class="fas fa-home"></i> Jesus de Nazareth
                                     </a>
-                                    <a href="menuPerfil.jsp" class="list-group-item list-group-item-action">
-                                    <i class="fas fa-address-card"></i> Mi perfil</a>
                                 </div>
                             </div>
                         </div>
@@ -103,55 +102,39 @@ else{
                         <div class="col-md-9" style="border: 1px solid #dedfe0; padding: 15px;">
                             <div class="col-md-12" style="text-align: center">
                                 <h3>
-                                    <i class="fas fa-user"></i> Mi Perfil
-                                    <p><small class="text-muted">Añade y modica tu informacion</small> </p>
+                                    <i class="fas fa-user">Mi Perfil</i> 
                                 </h3>
                             </div>
                             <hr>
-                            <div class="col-md-12" >
+                            <div class="col-md-12 bg-white" >
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-md-8">
                                         <form action="ServletPerfil">
                                             <div class="form-group ">
-                                                <label for="exampleInputEmail1">ID</label>
-                                                <input name="idPersona" value="<%out.print(usuario.getIdPersona()); %>"  type="text" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ID" disabled>
-
-                                            </div>
-                                            <div class="form-group ">
                                                 <label for="exampleInputEmail1">Usuario</label>
-                                                <input name="usuario" value="<%out.print(usuario.getUsuario()); %>"  type="text" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Usuario" disabled>
+                                                <input name="usuario" value="OscarBH"  type="text" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Usuario" readonly="readonly">
                                                 <small id="emailHelp" class="form-text text-muted">Nosotros nunca compartiremos tu informacion a nadie.</small>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">Nombre</label>
-                                                <input name="nombre" value="<%out.print(usuario.getNombre()); %>" type="text" class="form-control" id="exampleInputPassword1" placeholder="Ingrese Nombre">
+                                                <input name="nombre" value="Oscar Manuel" type="text" class="form-control" id="exampleInputPassword1" placeholder="Ingrese Nombre" readonly="readonly">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">Apellidos</label>
-                                                <input name="apellido" value="<%out.print(usuario.getApellido()); %>" type="text" class="form-control" id="exampleInputPassword1" placeholder="Ingrese apellidos">
+                                                <input name="apellido" value="Bravo Carbajal" type="text" class="form-control" id="exampleInputPassword1" placeholder="Ingrese apellidos" readonly="readonly">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">Direccion</label>
-                                                <input name="direccion" value="<%out.print(usuario.getDireccion()); %>" type="text" class="form-control" id="exampleInputPassword1" placeholder="Direccion">
+                                                <input name="direccion" value="Jr. Francisco Bolognesi 333" type="text" class="form-control" id="exampleInputPassword1" placeholder="Direccion" readonly="readonly">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">Email</label>
-                                                <input name="mail" value="<%out.print(usuario.getMail()); %>" type="email" class="form-control" id="exampleInputPassword1" placeholder="ejemplo@colgioJN.com">
+                                                <input name="mail" value="oscarmbravoc@gmail.com" type="email" class="form-control" id="exampleInputPassword1" placeholder="ejemplo@colgioJN.com" readonly="readonly">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">Celular</label>
-                                                <input name="celular" value="<%out.print(usuario.getNumeroCelular()); %>" type="number" class="form-control" id="exampleInputPassword1" placeholder="Ingrese Celular">
+                                                <input name="celular" value="956727151" type="number" class="form-control" id="exampleInputPassword1" placeholder="Ingrese Celular" readonly="readonly">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputPassword1">Telefono</label>
-                                                <input name="telefono" value="<%out.print(usuario.getNumeroTelefono()); %>" type="number" class="form-control" id="exampleInputPassword1" placeholder="Ingrese Telefono">
-                                            </div>
-                                            <div class="form-group form-check">
-                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                            </div>
-                                            <input type="hidden" name="accion" value="INS">
-                                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
                                         </form>
                                     </div>
 
@@ -163,7 +146,7 @@ else{
                 </div>
 
             </div>
-        </div> --%>
+        </div>
 	
             <script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
