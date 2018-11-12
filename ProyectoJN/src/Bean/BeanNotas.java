@@ -16,7 +16,7 @@ public class BeanNotas extends Bean
 		super();
 	}
 
-	public BeanNotas(String idNotas, String idCurso,String idAlumno, String Bim_1, String Bim_2, String Bim_3, String Bim_4) {
+	public BeanNotas(String idNotas, String idCurso, String idAlumno, String Bim_1, String Bim_2, String Bim_3, String Bim_4) {
 		super();
 		this.idNotas = idNotas;
 		this.idCurso = idCurso;
@@ -81,6 +81,5 @@ public class BeanNotas extends Bean
 
 	public void setBim_4(String bim_4) {
 		Bim_4 = bim_4;
-	}
-
+	}	
 }

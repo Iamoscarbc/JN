@@ -1,7 +1,10 @@
-$('#btnDescargarExcel').on('click',requestDescargar);
+// $('#btnDescargarExcel').on('click',requestDescargar);
+let btnDescargarExcel = document.querySelector('#btnDescargarExcel')
+	btnDescargarExcel.addEventListener('click', requestDescargar)
+
 
 function requestDescargar(){
-	tableToExcel('tablaAlumnos', 'Alumnos');
+	tableToExcel('tablaAlumnos2', 'Alumnos');
 }
 
 
@@ -16,4 +19,3 @@ var tableToExcel = (function() {
     window.location.href = uri + base64(format(template, ctx))
   }
 })()
-

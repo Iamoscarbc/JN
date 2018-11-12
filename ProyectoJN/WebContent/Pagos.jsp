@@ -47,7 +47,7 @@ else{
 	<link rel="icon" type="image/png" href="img/flechas.png">
   <title>Importe de Alumnos</title>
 </head>
-<body class="bg-dark">
+<body class="bg-dark" style="overflow:hidden">
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000;" >
 	  <a class="navbar-brand" href="Pagos.jsp">Registro de Pagos</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,6 +64,9 @@ else{
 	      </li>
 	      <li class="nav-item"> 
 	        <a class="nav-link" href="Alumnos.jsp">Alumnos</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="Pagos.jsp">Empleados</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="Notas.jsp">Notas</a>
@@ -87,43 +90,31 @@ else{
 	</nav>
 		<div class="container">
 	 <div class="row" style=" padding-top:50px">	
-        <div class="col-sm-3" style="background-color: #222128;">
-          <div class="card-body text-white">
-            <form action="ServletPago" method="get">
-                <div class="form-group"> 
-                  <div class="row">
-	                  <div class="col-6">
-	                  	<input type="text" placeholder="idAlumno" name="idAlumno" id="idAlumno" class="form-control" style="width:200px;">
-	                  </div>
-	                  <div class="col-5" style="padding-left: 1px;">
-	                  	<a href="#ventanaAlumnos" class="btn btn-dark btn-md" id="Visualizar" data-toggle="modal">Seleccionar</a>
-	                  </div>                   
-                  </div>
+        <div class="col bg-dark">
+          <div class="row">
+            <div class="col">
+		    	<a href="#registrarPagos" class="btn btn-primary btn-md " id="Visualizar" data-toggle="modal"><i class="fas fa-sign-in-alt"></i> Registrar</a>
+		    </div>
+		    <div class="col">
+		    	<button id="btnDescargarExcel" class="btn btn-success btn-md">Exportar Excel</button>
+		    </div>
+		    <div class="col">
+		    	<button id="descargarPDF" class="btn btn-warning btn-md">Exportar PDF</button>
+		    </div>
+		    <div class="col-6" style="padding-left:200px">
+            <div class="row">
+                <div class="col-8">
+                  <input class="form-control mr-sm-2" type="text" id="txtBuscar" placeholder="Buscar" aria-label="Search">
                 </div>
-                <div class="form-group">
-                  <input type="text" placeholder="DNI_R" name="DNI_R" id="DNI_R" class="form-control">
+                <div class="col-4">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </div>
-                <div class="form-group">
-                  <input type="text" placeholder="Concepto" name="Concepto" id="Concepto" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Importe" name="Importe" id="Importe" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="date" placeholder="Fecha_Pago" name="Fecha_Pago" id="Fecha_Pago" class="form-control">
-                </div>
-                <div align="center">             
-                    <input type="submit" value="Agregar" name="btnAgregar" class="btn btn-outline-success"><br><br>
-                    <input type="text" placeholder="idPagos" name="idPagos" id="idPagos" class="form-control"><br>
-                    <input type="submit" value="Modificar" name="btnModificar" class="btn btn-outline-primary">
-                    <input type="submit" value="Eliminar" name="btnEliminar" class="btn btn-outline-danger">
-                </div>
-            </form>
+            </div>
+		    </div>
           </div>
-        </div>
-        <div class="col-sm-9 bg-dark">
+          <br>
 		<div class="table-responsive">
-              <table class="table table-bordered table-dark text-white">
+              <table  id="tablaPagos" class="table table-bordered table-dark text-white">
                 <thead>
                   <tr>
                     <th>#Pagos</th>
@@ -149,19 +140,207 @@ else{
                             <td id="Importe1"><%=bean.getImporte() %></td>
                             <td id="Fecha_Pago1"><%=bean.getFecha_Pago() %></td>
                             <td>
-                            	<button name="btnEditar" value="Editar" id="Editar" class="btn btn-outline-success">Editar</button>
+                            	<button name="btnEditar" value="Editar" id="Editar" class="btn btn-outline-primary">
+			                       <a href="#modificarPagos" id="Visualizar" data-toggle="modal" class="text-primary">Editar</a>
+			  					</button>
                             </td>
                             <td>
-                            	<button value="Eliminar" name="btnEliminar" id="Eliminar" class="btn btn-outline-danger">Eliminar</button>
+                            	<button name="btnRellenar" value="Rellenar" id="Rellenar" class="btn btn-outline-danger">
+				            		<a href="#eliminarPagos" id="Visualizar" data-toggle="modal" class="text-danger">Eliminar</a>
+				            	</button>
                             </td>
                       </tr>
                     <% } %>
                 </tbody>
               </table>
             </div>
+            
+            <script type="text/javascript">
+                function BuscarEmpleadosTabla  () {
+                    let txtFiltro = document.querySelector("#txtBuscar")
+                    let tablaEmpleados = document.querySelector('#tablaPagos')
+                    let tbody =  tablaEmpleados.children[1]
+                    // console.log(tbody.children[1].children[3].textContent)
+                    for (var i = 0; i < tbody.childElementCount; i++) {
+                        // console.log(tbody.children[i].children[3].textContent)
+
+                        let nombreTablaFila = tbody.children[i].children[1].textContent
+                        let coincidencia = nombreTablaFila.toLowerCase().search(txtFiltro.value.toLowerCase())
+                        if (coincidencia  == -1 ) {
+                             tbody.children[i].style.display= 'none'
+                        }else {
+                             tbody.children[i].style.display = ''
+                        }
+
+                    }
+                }
+
+            document.querySelector("#txtBuscar").addEventListener('keyup', function () {
+                BuscarEmpleadosTabla()
+            });
+
+            document.querySelector('#btnBuscar').addEventListener('click', function ()  {
+                BuscarEmpleadosTabla()
+            });
+
+ 		     </script>
+            
+            <%--TABLA INVISIBLE --%>
+            <div class="" id="loadingPDF" style="display: none;">
+                 <a href="#" class="btn btn-primary btn-lg">Procesando Documento PDF<i class="fas fa-spinner fa-spin" ></i></a>
+            </div>
+            <div class="table-responsive"  id="tablaPagos2" style="padding: 20px; display: none; background: white ">
+              <table class="table table-bordered table-dark text-white">
+                <thead>
+                  <tr>
+                    <th>#Pagos</th>
+                    <th>#Alumno</th>
+                    <th>DNI Responsable</th>
+                    <th>Concepto</th>
+                    <th>Importe</th>
+                    <th>Fecha Pago</th>
+                  </tr>
+                </thead>
+                <tbody >
+                     <%
+                     	for(int i=0;i<lis_usu.getTamanio();i++)
+						{bean=(Bean.BeanPago)lis_usu.getElemento(i);
+                     %>  
+                      <tr>
+                            <td id="idPagos1"><%=bean.getIdPagos() %></td>
+                            <td id="idAlumno1"><%=bean.getIdAlumno() %></td>
+                            <td id="DNI_R1"><%=bean.getDNI_R() %></td>
+                            <td id="Concepto1"><%=bean.getConcepto() %></td>
+                            <td id="Importe1"><%=bean.getImporte() %></td>
+                            <td id="Fecha_Pago1"><%=bean.getFecha_Pago() %></td>
+                      </tr>
+                    <% } %>
+                </tbody>
+              </table>
+            </div>
+            
         </div>
         </div>
     </div> 
+    
+    <div class="modal fade" id="registrarPagos">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content" style="background-color: #000000;">
+					<div class="modal-header">
+					<h3 class="modal-tittle text-center text-white" id="tittleModal">Registrar Pagos</h3>
+					<button type="button" class="close" id="ClosePro" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body">
+						<div id="modalPagos">
+					<div class="col" style="background-color: #222128;">
+			          <div class="card-body text-white">
+			           <form action="ServletPago" method="get">
+			                <div class="form-group"> 
+			                  <div class="row">
+				                  <div class="col-6">
+				                  	<input type="number" placeholder="idAlumno" name="idAlumno" id="idAlumno" class="form-control" style="width:200px;" required onkeypress="return solonumeros(event)" onpaste="return false">
+				                  </div>
+				                  <div class="col-5" style="padding-left: 1px;">
+				                  	<a href="#ventanaAlumnos" class="btn btn-dark btn-md" id="Visualizar" data-toggle="modal">Seleccionar</a>
+				                  </div>                   
+			                  </div>
+			                </div>
+			                <div class="form-group">
+			                  <input type="number" max="99999999" min="10000000" placeholder="DNI_R" name="DNI_R" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
+			                </div>
+			                <div class="form-group">
+			                  <input type="text" placeholder="Concepto" name="Concepto" class="form-control" required onkeypress="return sololetras(event)" onpaste="return false">
+			                </div>
+			                <div class="form-group">
+			                    <input type="number" max="20000" min="0" placeholder="Importe" name="Importe" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
+			                </div>
+			                <div class="form-group">
+			                    <input type="date" placeholder="Fecha_Pago" name="Fecha_Pago" class="form-control" required>
+			                </div>
+			                <div align="center">             
+			                    <input type="submit" value="Agregar" name="btnAgregar" class="btn btn-outline-success">
+			                </div>
+			            </form>
+			          </div>
+			        </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+      
+       <div class="modal fade" id="modificarPagos">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content" style="background-color: #000000;">
+					<div class="modal-header">
+					<h3 class="modal-tittle text-center text-white" id="tittleModal">Modificar Pagos</h3>
+					<button type="button" class="close" id="ClosePro" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body">
+						<div id="modalPagos">
+					<div class="col" style="background-color: #222128;">
+			          <div class="card-body text-white">
+			           <form action="ServletPago" method="get">
+			                <div class="form-group"> 
+			                  <div class="row">
+				                  <div class="col-6">
+				                  	<input type="number" placeholder="idAlumno" name="idAlumno" id="idAlumnoM" class="form-control" style="width:200px;" required onkeypress="return solonumeros(event)" onpaste="return false">
+				                  </div>
+				                  <div class="col-5" style="padding-left: 1px;">
+				                  	<a href="#ventanaAlumnos" class="btn btn-dark btn-md" id="Visualizar" data-toggle="modal">Seleccionar</a>
+				                  </div>                   
+			                  </div>
+			                </div>
+			                <div class="form-group">
+			                  <input type="number" max="99999999" min="10000000" placeholder="DNI_R" name="DNI_R" id="DNI_R" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
+			                </div>
+			                <div class="form-group">
+			                  <input type="text" placeholder="Concepto" name="Concepto" id="Concepto" class="form-control" required onkeypress="return sololetras(event)" onpaste="return false">
+			                </div>
+			                <div class="form-group">
+			                    <input type="number" max="20000" min="0" placeholder="Importe" name="Importe" id="Importe" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
+			                </div>
+			                <div class="form-group">
+			                    <input type="date" placeholder="Fecha_Pago" name="Fecha_Pago" id="Fecha_Pago" class="form-control" required>
+			                </div>
+			                <div align="center">             
+			                    <input type="number" placeholder="idPagos" name="idPagos" id="idPagos" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false" readonly="readonly"><br>
+			                    <input type="submit" value="Modificar" name="btnModificar" class="btn btn-outline-primary">
+			                </div>
+			            </form>
+			          </div>
+			        </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="eliminarPagos">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content" style="background-color: #000000;">
+					<div class="modal-header">
+					<h3 class="modal-tittle text-center text-white" id="tittleModal">Eliminar Pagos</h3>
+					<button type="button" class="close" id="ClosePro" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<div class="modal-body">
+						<div id="modalPagos">
+					<div class="col" style="background-color: #222128;">
+			          <div class="card-body text-white">
+			           <form action="ServletPagos" method="get">
+							<div align="center">
+			                	<label>¿Desea Eliminar el Pago con el siguiente ID?</label>
+			                 	<input type="number" placeholder="idPagos" name="idPagos" id="idPagosE" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false" readonly="readonly"><br>
+			                    <input type="submit" value="Modificar" name="btnModificar" class="btn btn-outline-primary">
+			                </div>
+			            </form>
+			          </div>
+			        </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
     
     <div class="modal fade" id="ventanaAlumnos">
 				<div class="modal-dialog modal-lg modal-dialog-centered">
@@ -205,11 +384,96 @@ else{
 						</div>
 					</div>
 				</div>
-			</div>   
-               
+			</div> 
+			
+			  <script>
+			function sololetras(e){
+				key=e.keyCode || e.which;
+				teclado=String.fromCharCode(key).toLowerCase();
+				letras=" abcdefghijklmnñopqrstuvwxyz";
+				especiales="8-37-38-46-164";
+				teclado_especial=false;
+
+				for(var i in especiales){
+					if(key==especiales[i]){
+						teclado_especial=true;break;
+					}
+				}
+				if(letras.indexOf(teclado)==-1 && !teclado_especial){
+					return false;
+				}
+			}
+		</script>
+
+		<script>
+			function solonumeros(e){
+				key=e.keyCode || e.which;
+				teclado=String.fromCharCode(key);
+				numeros="0123456789";
+				especiales="8-37-38-46-164";
+				teclado_especial=false;
+
+				for(var i in especiales){
+					if(key==especiales[i]){
+						teclado_especial=true;break;
+					}
+				}
+				if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+					return false;
+				}
+			}
+		</script>
+
+		<script>
+			function telefono(e){
+				key=e.keyCode || e.which;
+				teclado=String.fromCharCode(key);
+				numeros="+0123456789";
+				especiales="8-37-38-46-164";
+				teclado_especial=false;
+
+				for(var i in especiales){
+					if(key==especiales[i]){
+						teclado_especial=true;break;
+					}
+				}
+				if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+					return false;
+				}
+			}
+		</script>
+
+		<script>
+			function direccion(e){
+				key=e.keyCode || e.which;
+				teclado=String.fromCharCode(key);
+				numeros=" abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ-0123456789.";
+				especiales="8-37-38-46-164";
+				teclado_especial=false;
+
+				for(var i in especiales){
+					if(key==especiales[i]){
+						teclado_especial=true;break;
+					}
+				}
+				if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+					return false;
+				}
+			}
+		</script>
+
+
+
    <script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+   
    <script src="js/bootstrap.min.js" type="text/javascript"></script>
    <script src="js/popper.min.js" type="text/javascript"></script>
-   <script src="ajaxPagos.js" type="text/javascript"></script>
+   <script src="Ajax/ajaxPagos/ajaxPagos.js" type="text/javascript"></script>
+   <script src="Ajax/ajaxPagos/editar.js" type="text/javascript"></script>
+   <script src="Ajax/ajaxPagos/eliminar.js" type="text/javascript"></script>
+   <script src="Ajax/ajaxPagos/pdfFromHTML.js" type="text/javascript"></script>
+   <script src="Ajax/ajaxPagos/tableToExcel.js" type="text/javascript"></script>
 </body>
 </html>

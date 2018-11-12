@@ -41,7 +41,7 @@ else{
 <title>Alumnos</title>
     </head>
     
-<body class="bg-dark">
+<body class="bg-dark" style="overflow:hidden">
 
 	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000;" >
 	  <a class="navbar-brand" href="Alumnos.jsp">Registro de Alumnos</a>
@@ -94,8 +94,15 @@ else{
 		    <div class="col">
 		    	<button id="descargarPDF" class="btn btn-warning btn-md">Exportar PDF</button>	  
 		    </div>
-		    <div class="col-sm-7">
-		    	<a>Search</a>
+		    <div class="col-6" style="padding-left:200px">
+            <div class="row">
+                <div class="col-8">
+                  <input class="form-control mr-sm-2" type="text" id="txtBuscar" placeholder="Buscar" aria-label="Search">
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-outline-success my-2 my-sm-0" id="btnBuscar" type="submit">Buscar</button>
+                </div>
+            </div>
 		    </div>
 		    </div>
 		    <br>	
@@ -145,10 +152,80 @@ else{
                 </tbody>
               </table>
             </div>
+            
+            <script type="text/javascript">
+                function BuscarEmpleadosTabla  () {
+                    let txtFiltro = document.querySelector("#txtBuscar")
+                    let tablaEmpleados = document.querySelector('#tablaAlumnos')
+                    let tbody =  tablaEmpleados.children[1]
+                    // console.log(tbody.children[1].children[3].textContent)
+                    for (var i = 0; i < tbody.childElementCount; i++) {
+                        // console.log(tbody.children[i].children[3].textContent)
+
+                        let nombreTablaFila = tbody.children[i].children[2].textContent
+                        let coincidencia = nombreTablaFila.toLowerCase().search(txtFiltro.value.toLowerCase())
+                        if (coincidencia  == -1 ) {
+                             tbody.children[i].style.display= 'none'
+                        }else {
+                             tbody.children[i].style.display = ''
+                        }
+
+                    }
+                }
+
+            document.querySelector("#txtBuscar").addEventListener('keyup', function () {
+                BuscarEmpleadosTabla()
+            });
+
+            document.querySelector('#btnBuscar').addEventListener('click', function ()  {
+                BuscarEmpleadosTabla()
+            });
+
+ 		     </script>
+            
+            <%--TABLA INVISIBLE --%>
+            <div class="" id="loadingPDF" style="display: none;">
+                 <a href="#" class="btn btn-primary btn-lg">Procesando Documento PDF<i class="fas fa-spinner fa-spin" ></i></a>
+            </div>
+         <div class="table-responsive"  id="tablaAlumnos2" style="padding: 20px; display: none; background: white ">
+           <table class="table table-bordered table-dark text-white">
+             <thead>
+               <tr>
+                <th>#</th>
+                <th>DNI</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Edad</th>
+                <th>Grado</th>
+                <th>Sexo</th>
+               </tr>
+             </thead>
+             <tbody >
+               <% for(int i=0;i<lis_usu.getTamanio();i++)
+                        {bean=(BeanAlumno)lis_usu.getElemento(i);
+                        %>   
+                   <tr>
+                    <td id="idAlumno1"><%=bean.getIdAlumno()%></td>
+                    <td id="DNI1"><%=bean.getDNI() %></td>
+                    <td id="Nombres1"><%=bean.getNombres() %></td>
+                    <td id="Apellidos1"><%=bean.getApellidos() %></td>
+                    <td id="Direccion1"><%=bean.getDireccion() %></td>
+                    <td id="Telefono1"><%=bean.getTelefono() %></td>
+                    <td id="Edad1"><%=bean.getEdad() %></td>
+                    <td id="Grado1"><%=bean.getGrado() %></td>
+                    <td id="Sexo1"><%=bean.getSexo() %></td>
+                   </tr>
+                 <% } %>
+             </tbody>
+           </table>
+         </div>
+            
         </div> 
         </div>
         </div>   
-        
+                
         <div class="modal fade" id="registroAlumnos">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content" style="background-color: #000000;">
@@ -162,7 +239,7 @@ else{
 			          <div class="card-body text-white">
 			            <form action="ServletAlumno" method="get">                
 			                <div class="form-group">
-			                  <input type="text" placeholder="DNI" name="DNI" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
+			                  <input type="number" max="99999999" min="10000000" placeholder="DNI" name="DNI" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
 			                  <input type="text" placeholder="Nombres" name="Nombres" class="form-control" required onkeypress="return sololetras(event)" onpaste="return false">
@@ -174,25 +251,25 @@ else{
 			                    <input type="text" placeholder="Direccion" name="Direccion" class="form-control" required onkeypress="return direccion(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-			                    <input type="text" placeholder="Telefono"  name="Telefono"class="form-control" required onkeypress="return telefono(event)" onpaste="return false">
+			                    <input type="number" max="999999999" min="100000000" placeholder="Telefono"  name="Telefono"class="form-control" required onkeypress="return telefono(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-			                    <input type="text" placeholder="Edad"  name="Edad" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
+			                    <input type="number" max="6" min="2" placeholder="Edad"  name="Edad" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
 							    <select class="form-control" name="Grado" required>
-							    <option value="null" selected="true" disabled="disabled">Seleccione Grado</option>
-							      <option>Estimulación Temprana</option>
-							      <option>3 años</option>
-							      <option>4 años</option>
-							      <option>5 años</option>
+							    <option value="" >Seleccione Grado</option>
+							      <option value="Estimulación Temprana">Estimulación Temprana</option>
+							      <option value="3 años">3 años</option>
+							      <option value="4 años">4 años</option>
+							      <option value="5 años">5 años</option>
 							    </select>
 							  </div>
 							  <div class="form-group">
 							    <select class="form-control" name="Sexo" required>
-							    <option value="null" selected="true" disabled="disabled">Seleccione Sexo</option>
-							      <option>Masculino</option>
-							      <option>Femenino</option>
+							    <option value="">Seleccione Sexo</option>
+							      <option value="Masculino">Masculino</option>
+							      <option value="Femenino">Femenino</option>
 							    </select>
 							  </div>     
 							  <div align="center">
@@ -220,7 +297,7 @@ else{
 			          <div class="card-body text-white">
 			            <form action="ServletAlumno" method="get">                
 			                <div class="form-group">
-			                  <input type="text" placeholder="DNI" name="DNI" id="DNI" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
+			                  <input type="number" max="99999999" min="10000000" placeholder="DNI" name="DNI" id="DNI" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
 			                  <input type="text" placeholder="Nombres" name="Nombres" id="Nombres" class="form-control" required onkeypress="return sololetras(event)" onpaste="return false">
@@ -232,29 +309,29 @@ else{
 			                    <input type="text" placeholder="Direccion" name="Direccion" id="Direccion" class="form-control" required onkeypress="return direccion(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-			                    <input type="text" placeholder="Telefono"  name="Telefono" id="Telefono" class="form-control" required onkeypress="return telefono(event)" onpaste="return false">
+			                    <input type="number" max="999999999" min="100000000" placeholder="Telefono"  name="Telefono" id="Telefono" class="form-control" required onkeypress="return telefono(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-			                    <input type="text" placeholder="Edad"  name="Edad" id="Edad" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
+			                    <input type="number" max="6" min="2" placeholder="Edad"  name="Edad" id="Edad" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false">
 			                </div>
 			                <div class="form-group">
-							    <select class="form-control" id="Grado" name="Grado" required>
-							    <option value="null" selected="true" disabled="disabled">Seleccione Grado</option>
-							      <option>Estimulación Temprana</option>
-							      <option>3 años</option>
-							      <option>4 años</option>
-							      <option>5 años</option>
+							    <select class="form-control" name="Grado" id="Grado" required>
+							    <option value="" >Seleccione Grado</option>
+							      <option value="Estimulación Temprana">Estimulación Temprana</option>
+							      <option value="3 años">3 años</option>
+							      <option value="4 años">4 años</option>
+							      <option value="5 años">5 años</option>
 							    </select>
 							  </div>
 							  <div class="form-group">
-							    <select class="form-control" id="Sexo" name="Sexo" required>
-							    <option value="null" selected="true" disabled="disabled">Seleccione Sexo</option>
-							      <option>Masculino</option>
-							      <option>Femenino</option>
+							    <select class="form-control" name="Sexo" id="Sexo" required>
+							    <option value="">Seleccione Sexo</option>
+							      <option value="Masculino">Masculino</option>
+							      <option value="Femenino">Femenino</option>
 							    </select>
 							  </div>     
 							  <div align="center">
-			                  	<input type="text" placeholder="idAlumno" name="idAlumno" id="idAlumno" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false"><br>
+			                  	<input type="number" placeholder="idAlumno" name="idAlumno" id="idAlumno" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false" readonly="readonly" ><br>
 			                    <input type="submit" value="Modificar" name="btnModificar" class="btn btn-outline-primary">
 			                  </div>
 			            </form>
@@ -280,7 +357,7 @@ else{
 					            <form action="ServletAlumno" method="get">               
 					                  <div align="center">
 					                  <label>¿Desea Eliminar a el alumno con el siguiente ID?</label>
-					                  	<input type="text" placeholder="idAlumno" name="idAlumno" id="idAlumnoE" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false"><br>
+					                  	<input type="number" placeholder="idAlumno" name="idAlumno" id="idAlumnoE" class="form-control" required onkeypress="return solonumeros(event)" onpaste="return false" readonly="readonly" ><br>
 					                    <input type="submit" value="Eliminar" name="btnEliminar" class="btn btn-outline-danger">
 					                  </div>
 					            </form>
@@ -370,11 +447,13 @@ else{
 		
 		
    <script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
    <script src="js/bootstrap.min.js" type="text/javascript"></script>
    <script src="js/popper.min.js" type="text/javascript"></script>
    <script src="Ajax/ajaxAlumnos/editar.js" type="text/javascript"></script>
    <script src="Ajax/ajaxAlumnos/eliminar.js" type="text/javascript"></script>
    <script src="Ajax/ajaxAlumnos/tableToExcel.js" type="text/javascript"></script>
-   <script src="Ajax/ajaxAlumnos/descargarPDF.js" type="text/javascript"></script>
+   <script src="Ajax/ajaxAlumnos/pdfFromHTML.js" type="text/javascript"></script>
 </body>
 </html>

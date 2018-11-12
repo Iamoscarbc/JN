@@ -1,7 +1,7 @@
 $('#btnDescargarExcel').on('click',requestDescargar);
 
 function requestDescargar(){
-	tableToExcel('tablaEmpleados2', 'Empleados');
+	tableToExcel('tablaPagos2','Pagos');
 }
 
 
