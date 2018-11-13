@@ -63,7 +63,7 @@
 	<link rel="icon" type="image/png" href="img/flechas.png">
 <title>Matricula</title>
 </head>
-<body class="bg-dark" style="overflow:hidden">
+<body class="bg-dark" >
 
 	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000;" >
 	  <a class="navbar-brand" href="Matricula.jsp">Registro de Matricula</a>
@@ -81,9 +81,6 @@
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="Empleados.jsp">Empleados</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="Notas.jsp">Notas</a>
 	      </li>
 	      <li class="nav-item dropdown">
 	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -107,25 +104,19 @@
 	<div class="row" style="padding-top:20px">
         <div class="col bg-dark">
           <div class="row">
-          	<div class="col">
-		    	<a href="#registrarMatricula" class="btn btn-primary btn-md " id="Visualizar" data-toggle="modal"><i class="fas fa-sign-in-alt"></i> Registrar</a>
-		    </div>
-		    <div class="col">
-		    	<button id="btnDescargarExcel" class="btn btn-success btn-md">Exportar Excel</button>
-		    </div>
-		    <div class="col">
-		    	<button id="descargarPDF" class="btn btn-warning btn-md">Exportar PDF</button>
-		    </div>
-		    <div class="col-6" style="padding-left:200px">
-            <div class="row">
-                <div class="col-8">
-                  <input class="form-control mr-sm-2" type="text" id="txtBuscar" placeholder="Buscar" aria-label="Search">
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                </div>
-            </div>
-		    </div>
+          	<div class="col-sm-4"> 
+		    	<a href="#registrarMatricula" class="btn btn-primary btn-md " id="Visualizar" data-toggle="modal"><i class="fas fa-sign-in-alt"></i> Registrar</a>&nbsp;		    
+		       	<button id="btnDescargarExcel" class="btn btn-success btn-md">Excel</button>&nbsp;  	
+		       	<button id="descargarPDF" class="btn btn-warning btn-md">PDF</button> &nbsp;
+	         </div>
+	         <br> 
+	         <br>
+             <div class="col-sm-3"> 
+               <input class="form-control mr-sm-2" type="text" id="txtBuscar" placeholder="Buscar" aria-label="Search">
+              </div>
+              <div class="col-sm-4">
+               <button class="btn btn-outline-success my-2 my-sm-0" id="btnBuscar" type="submit">Buscar</button>
+             </div>		    
 		    </div>
 		    <br>
             <div class="table-responsive" >

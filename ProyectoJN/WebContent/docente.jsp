@@ -40,10 +40,10 @@ else{
 	   <ul class="navbar-nav mr-auto">
 	      <li class="nav-item">
 	        <a class="nav-link" href="Alumnos.jsp">Alumnos<span class="sr-only">(current)</span></a>
-	      </li>
+	      </li>	      
 	      <li class="nav-item">
 	        <a class="nav-link" href="Notas.jsp">Notas</a>
-	      </li>	      
+	      </li>     
 	    </ul>
 	   <form class="form-inline my-2 my-lg-0">
 	      <h5 class="text-uppercase font-weight-bold mr-sm-2"><%=sesion.getAttribute("nombre")%></h5>

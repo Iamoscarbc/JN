@@ -53,7 +53,7 @@
 	<link rel="icon" type="image/png" href="img/flechas.png">
 <title>Notas</title>
     </head>
-<body class="bg-dark" style="overflow:hidden">
+<body class="bg-dark" >
 
 	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000;" >
 	  <a class="navbar-brand" href="Notas.jsp">Registro de Notas</a>
@@ -96,26 +96,20 @@
 	<div class="row" style="padding-top:20px">
           <div class="col bg-dark" >
           	<div class="row">
-          	<div class="col-2">
-		    	<a href="#registrarNotas" class="btn btn-primary btn-md " id="Visualizar" data-toggle="modal"><i class="fas fa-sign-in-alt"></i> Registrar</a>
+          	<div class="col-sm-4"> 
+		    	<a href="#registrarNotas" class="btn btn-primary btn-md " id="Visualizar" data-toggle="modal"><i class="fas fa-sign-in-alt"></i> Registrar</a>&nbsp;		    
+		       	<button id="btnDescargarExcel" class="btn btn-success btn-md">Excel</button>&nbsp;  	
+		       	<button id="descargarPDF" class="btn btn-warning btn-md">PDF</button> &nbsp;
+	         </div>
+	         <br> 
+	         <br>
+             <div class="col-sm-3"> 
+               <input class="form-control mr-sm-2" type="text" id="txtBuscar" placeholder="Buscar" aria-label="Search">
+              </div>
+              <div class="col-sm-4">
+               <button class="btn btn-outline-success my-2 my-sm-0" id="btnBuscar" type="submit">Buscar</button>
+             </div>		    
 		    </div>
-		    <div class="col-2">
-		    	<button id="btnDescargarExcel" class="btn btn-success btn-md">Exportar Excel</button>
-		    </div>
-		    <div class="col-2">
-		    	<button id="descargarPDF" class="btn btn-warning btn-md">Exportar PDF</button>
-		    </div>
-		    <div class="col-6" style="padding-left:200px">
-            <div class="row">
-                <div class="col-8">
-                  <input class="form-control mr-sm-2" type="text" id="txtBuscar" placeholder="Buscar" aria-label="Search">
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                </div>
-            </div>
-		    </div>
-	    </div>
 		    <br>
             <div class="table-responsive">
               <table id="tablaNotas" class="table table-bordered table-dark text-white">
@@ -302,7 +296,7 @@
 				                  	<input type="number" placeholder="idCurso" name="idCurso" id="idCursoM" class="form-control" style="width:200px;" required onkeypress="return solonumeros(event)" onpaste="return false">
 				                  </div> 
 				                  <div class="col-5" style="padding-left: 1px;">
-				                  	<a href="#ventanaCurso" class="btn btn-dark btn-md" id="Visualizar" data-toggle="modal">Seleccionar</a>
+				                  	<a href="#ventanaCurso2" class="btn btn-dark btn-md" id="Visualizar" data-toggle="modal">Seleccionar</a>
 				                  </div>
 			                  </div>
 			                </div>
@@ -312,7 +306,7 @@
 				                  	<input type="number" placeholder="idAlumno" name="idAlumno" id="idAlumnoM" class="form-control" style="width:200px;" required onkeypress="return solonumeros(event)" onpaste="return false">
 				                  </div>
 				                  <div class="col-5" style="padding-left: 1px;">
-				                  	<a href="#ventanaAlumnos" class="btn btn-dark btn-md" id="Visualizar" data-toggle="modal">Seleccionar</a>
+				                  	<a href="#ventanaAlumnos2" class="btn btn-dark btn-md" id="Visualizar" data-toggle="modal">Seleccionar</a>
 				                  </div>
 			                  </div>
 			                </div>
@@ -409,6 +403,49 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="modal fade" id="ventanaAlumnos2">
+				<div class="modal-dialog modal-lg modal-dialog-centered">
+					<div class="modal-content" style="background-color: #000000;">
+						<div class="modal-header">
+						<h3 class="modal-tittle text-center text-white" id="tittleModal">Alumnos</h3>
+						<button type="button" class="close" id="ClosePro" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body">
+							<div id="modalAlumnos">
+							<div class="table-responsive">
+									 <table id="tableAlumnos" class="table table-dark table-bordered table-hover mt-2 text-center">
+								        <tr>
+								            <th>#Alumno</th>
+											<th>DNI</th>
+											<th>Nombres</th>
+											<th>Apellidos</th>
+								        </tr>
+								        	<%
+								        	 for(int i=0;i<lis_al.getTamanio();i++)
+				                                {bean_al=(BeanAlumno)lis_al.getElemento(i);
+								        	%>
+								        <tr>
+											<td id ="idAlumnoModal"><%=bean_al.getIdAlumno()%></td>
+				                            <td id ="DNIModal"><%=bean_al.getDNI()%></td>
+				                            <td id ="NombresModal"><%=bean_al.getNombres()%></td>
+				                            <td id ="ApellidosModal"><%=bean_al.getApellidos()%></td>
+											<td>
+                           					<button class="btn btn-dark" id="Seleccionar2">Seleccionar</button>
+                        					</td>
+										  </tr>
+										<%} %>
+								       </table>
+			                   </div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
 	<div class="modal fade" id="ventanaCurso">
 				<div class="modal-dialog modal-lg modal-dialog-centered">
@@ -434,6 +471,45 @@
 				                            <td id ="CursoModal"><%=bean_cu.getCurso()%></td>
 											<td>
                            					<button class="btn btn-dark" id="Seleccionar1">Seleccionar</button>
+                        					</td>
+										  </tr>
+										<%} %>
+								       </table>
+			                   </div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="modal fade" id="ventanaCurso2">
+				<div class="modal-dialog modal-lg modal-dialog-centered">
+					<div class="modal-content" style="background-color: #000000;">
+						<div class="modal-header">
+						<h3 class="modal-tittle text-center text-white" id="tittleModal">Cursos</h3>
+						<button type="button" class="close" id="ClosePro" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body">
+							<div id="modalCurso">
+							<div class="table-responsive">
+									 <table id="tableCurso" class="table table-dark table-bordered table-hover mt-2 text-center">
+								        <tr>
+								            <th>#Curso</th>
+											<th>Curso</th>
+								        </tr>
+								        	<%
+								        	 for(int i=0;i<lis_cu.getTamanio();i++)
+				                                {bean_cu=(BeanCurso)lis_cu.getElemento(i);
+								        	%>
+								        <tr>
+											<td id ="idCursoModal"><%=bean_cu.getIdCurso()%></td>
+				                            <td id ="CursoModal"><%=bean_cu.getCurso()%></td>
+											<td>
+                           					<button class="btn btn-dark" id="Seleccionar3">Seleccionar</button>
                         					</td>
 										  </tr>
 										<%} %>
